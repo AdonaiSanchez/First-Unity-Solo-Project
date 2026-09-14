@@ -5,8 +5,10 @@ public class PlayerController : MonoBehaviour
 {
     public float speed = 5.0f;
     public float jumpHeight = 10.0f;
+    public float jumpDetectDistance = 1f;
 
-    public Vector2 moveInput = Vector2.zero;
+    Ray jumpRay;
+    Vector2 moveInput = Vector2.zero;
     
     PlayerInput input;
     Rigidbody rb;
@@ -16,11 +18,33 @@ public class PlayerController : MonoBehaviour
     {
         input = GetComponent<PlayerInput>();
         rb = GetComponent<Rigidbody>();
+
+        jumpRay = new Ray();
     }
 
     // Update is called once per frame
     void Update()
     {
+        jumpRay.origin = transform.position;
+        jumpRay.direction = -transform.up;
         
+        Vector3 tempMove = rb.linearVelocity;
+
+        tempMove.x = moveInput.x * speed;
+        tempMove.z = moveInput.y * speed;
+
+
+        rb.linearVelocity = tempMove;
+    }
+
+    public void Move(InputAction.CallbackContext context)
+    {
+        moveInput = context.ReadValue<Vector2>();
+    }
+
+    public void Jump()
+    {
+        if (Physics.Raycast(jumpRay, jumpDetectDistance))
+            rb.AddForce(transform.up * jumpHeight, ForceMode.Impulse);
     }
 }
