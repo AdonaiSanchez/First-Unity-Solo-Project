@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,6 +11,8 @@ public class PlayerController : MonoBehaviour
     Ray jumpRay;
     Vector2 moveInput = Vector2.zero;
 
+    public GameObject currentWeaponObj;
+    Transform weaponSlot;
     Camera playerCam;
     PlayerInput input;
     Rigidbody rb;
@@ -20,6 +23,7 @@ public class PlayerController : MonoBehaviour
         input = GetComponent<PlayerInput>();
         rb = GetComponent<Rigidbody>();
         playerCam = Camera.main;
+        weaponSlot = transform.GetChild(0);
 
         jumpRay = new Ray();
 
@@ -59,4 +63,5 @@ public class PlayerController : MonoBehaviour
         if (Physics.Raycast(jumpRay, jumpDetectDistance))
             rb.AddForce(transform.up * jumpHeight, ForceMode.Impulse);
     }
+
 }
