@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 3
   tags:
   - Weapon
+  - Ammo
+  - Hazard
+  - EndLevel
   layers:
   - Default
   - TransparentFX

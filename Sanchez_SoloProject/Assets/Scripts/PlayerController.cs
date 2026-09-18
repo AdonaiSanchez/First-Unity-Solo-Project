@@ -4,12 +4,16 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    public int health = 100;
+
     public float speed = 5.0f;
     public float jumpHeight = 10.0f;
     public float jumpDetectDistance = 1f;
     public float interactDistance = 5f;
+    public float fireDmgTickrate = 0.1f;
 
     public bool isAttacking;
+    public bool fireDmg = false;
 
     Ray jumpRay;
     Ray interactRay;
@@ -17,12 +21,13 @@ public class PlayerController : MonoBehaviour
     Vector2 moveInput = Vector2.zero;
 
     public WeaponScript currentWeapon;
-
+    public WeaponScript akimboWeapon;
     Camera playerCam;
     public Transform weaponSlot;
+    public Transform akimboSlot;
     PlayerInput input;
     Rigidbody rb;
-    GameObject pickupObj;
+    public GameObject pickupObj;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -31,6 +36,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         playerCam = Camera.main;
         weaponSlot = playerCam.transform.GetChild(0);
+        akimboSlot = playerCam.transform.GetChild(1);
 
         interactRay = new Ray();
         jumpRay = new Ray();
@@ -50,6 +56,11 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(health <= 0)
+        {
+
+        }
+
         jumpRay.origin = transform.position;
         jumpRay.direction = -transform.up;
 
@@ -58,7 +69,7 @@ public class PlayerController : MonoBehaviour
 
         if (Physics.Raycast(interactRay, out interactHit, interactDistance))
         {
-            if (interactHit.collider.tag == "Weapon")
+            if (interactHit.collider.tag == "Weapon" || interactHit.collider.tag == "Ammo")
             {
                 pickupObj = interactHit.collider.gameObject;
             }
@@ -81,6 +92,47 @@ public class PlayerController : MonoBehaviour
         rb.linearVelocity = (tempMove.x * transform.right) + (tempMove.y * transform.up) + (tempMove.z * transform.forward);
     }
 
+    private void OnCollsionEnter(Collider collision)
+    {
+        if(collision.gameObject.tag == "Hazard")
+        {
+            health--;
+        }
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+       if(collision.gameObject.tag == "Hazard")
+        {
+            if(!fireDmg)
+            {
+                StartCoroutine("fireDmgCooldown");
+            }
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if(collision.gameObject.tag == "Hazard")
+        {
+            if(fireDmg)
+            {
+                StopCoroutine("fireDmgCooldown");
+                fireDmg = false;
+            }
+        }
+    }
+
+    IEnumerator fireDmgCooldown()
+    {
+        fireDmg = true;
+
+        yield return new WaitForSeconds(fireDmgTickrate);
+
+        health--;
+        fireDmg = false;
+    }
+
     public void Move(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
@@ -98,9 +150,27 @@ public class PlayerController : MonoBehaviour
         {
             if (pickupObj)
             {
-                if (pickupObj.tag == "Weapon")
+                if (pickupObj.tag == "Weapon" && !currentWeapon)
                 {
                     pickupObj.GetComponent<WeaponScript>().equip(this);
+                }
+                else if(pickupObj.tag == "Weapon" && currentWeapon && currentWeapon.canAkimbo == true && !akimboWeapon && pickupObj.GetComponent<WeaponScript>().weaponID == currentWeapon.weaponID)
+                {
+                    pickupObj.GetComponent<WeaponScript>().equipAkimbo(this);
+                }
+
+                if (pickupObj.tag == "Ammo" && currentWeapon)
+                {
+                    int refillAmt = currentWeapon.maxAmmo - currentWeapon.ammoRefill;
+
+                    if (refillAmt >= currentWeapon.maxAmmo)
+                    {
+                        currentWeapon.ammo = currentWeapon.maxAmmo;
+                    }
+                    else
+                        currentWeapon.ammo += currentWeapon.ammoRefill;
+
+                    Destroy(pickupObj);
                 }
 
                 pickupObj = null;
@@ -115,6 +185,7 @@ public class PlayerController : MonoBehaviour
         if(currentWeapon)
             if(!currentWeapon.reloading)
                 currentWeapon.reload();
+                akimboWeapon.GetComponent<WeaponScript>().unequip();
     }
 
     public void Attack(InputAction.CallbackContext context)
@@ -134,9 +205,30 @@ public class PlayerController : MonoBehaviour
         }    
     }
 
+    public void Akimbo(InputAction.CallbackContext context)
+    {
+        if (akimboWeapon)
+        {
+            if (akimboWeapon.holdToAttack)
+            {
+                if (context.ReadValueAsButton())
+                    isAttacking = true;
+                else
+                    isAttacking = false;
+            }
+
+            else if (context.ReadValueAsButton())
+                akimboWeapon.fire();
+        }
+    }
+
     public void DropWeapon()
     {
-        if(currentWeapon)
+        if(akimboWeapon)
+        {
+            akimboWeapon.GetComponent<WeaponScript>().unequip();
+        }
+        else if(currentWeapon && !akimboWeapon)
         {
             currentWeapon.GetComponent<WeaponScript>().unequip();
         }

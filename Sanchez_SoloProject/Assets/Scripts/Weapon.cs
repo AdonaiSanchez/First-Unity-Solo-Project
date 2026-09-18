@@ -15,7 +15,8 @@ public class WeaponScript : MonoBehaviour
     public bool canFire = true;
     public bool holdToAttack = true;
     public bool reloading = false;
-    //public bool canAkimbo = false;
+    public bool canAkimbo = false;
+    public bool akimbo = false;
     public int weaponID;
     public string weaponName;
 
@@ -44,22 +45,38 @@ public class WeaponScript : MonoBehaviour
     public void equip(PlayerController p)
     {
         player = p;
+
         player.currentWeapon = this;
 
         transform.SetPositionAndRotation(player.weaponSlot.position, player.weaponSlot.rotation);
         transform.SetParent(player.weaponSlot);
+    }
 
-        GetComponent<Collider>().isTrigger = true;
+    public void equipAkimbo(PlayerController p)
+    {
+        player = p;
+
+        player.akimboWeapon = this;
+
+        transform.SetPositionAndRotation(player.akimboSlot.position, player.akimboSlot.rotation);
+        transform.SetParent(player.akimboSlot);
     }
 
     public void unequip()
     {
-        player.currentWeapon = null;
+        if(!player.akimboWeapon)
+        {
+            player.currentWeapon = null;
+        }
+        else
+        {
+            player.akimboWeapon = null;
+        }
+            
+        transform.SetPositionAndRotation(player.transform.position, player.transform.rotation);
         transform.SetParent(null);
 
-        GetComponent<Collider>().isTrigger = false;
-
-        player = null;
+         player = null;
     }
 
     public void reload()
