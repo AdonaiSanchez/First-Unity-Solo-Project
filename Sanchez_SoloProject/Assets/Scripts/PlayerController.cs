@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    public int maxHealth = 100;
     public int health = 100;
 
     public float speed = 5.0f;
@@ -14,6 +15,7 @@ public class PlayerController : MonoBehaviour
 
     public bool isAttacking;
     public bool fireDmg = false;
+    public bool akimbo = false;
 
     Ray jumpRay;
     Ray interactRay;
@@ -224,13 +226,11 @@ public class PlayerController : MonoBehaviour
 
     public void DropWeapon()
     {
-        if(akimboWeapon)
-        {
-            akimboWeapon.GetComponent<WeaponScript>().unequip();
-        }
-        else if(currentWeapon && !akimboWeapon)
+        if(!akimboWeapon && currentWeapon)
         {
             currentWeapon.GetComponent<WeaponScript>().unequip();
         }
+        else if (akimboWeapon)
+            akimboWeapon.GetComponent<WeaponScript>().unequip();
     }
 }

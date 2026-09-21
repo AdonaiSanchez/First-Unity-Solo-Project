@@ -16,7 +16,6 @@ public class WeaponScript : MonoBehaviour
     public bool holdToAttack = true;
     public bool reloading = false;
     public bool canAkimbo = false;
-    public bool akimbo = false;
     public int weaponID;
     public string weaponName;
 
@@ -57,6 +56,7 @@ public class WeaponScript : MonoBehaviour
         player = p;
 
         player.akimboWeapon = this;
+        player.akimbo = true;
 
         transform.SetPositionAndRotation(player.akimboSlot.position, player.akimboSlot.rotation);
         transform.SetParent(player.akimboSlot);
@@ -71,6 +71,7 @@ public class WeaponScript : MonoBehaviour
         else
         {
             player.akimboWeapon = null;
+            player.akimbo = false;
         }
             
         transform.SetPositionAndRotation(player.transform.position, player.transform.rotation);
