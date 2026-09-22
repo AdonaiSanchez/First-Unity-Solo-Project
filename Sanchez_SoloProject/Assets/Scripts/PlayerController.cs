@@ -14,8 +14,10 @@ public class PlayerController : MonoBehaviour
     public float fireDmgTickrate = 0.1f;
 
     public bool isAttacking;
+    public bool akimboAttacking;
     public bool fireDmg = false;
     public bool akimbo = false;
+    public bool canReloadAkimbo = false;
 
     Ray jumpRay;
     Ray interactRay;
@@ -85,8 +87,14 @@ public class PlayerController : MonoBehaviour
             if (currentWeapon.holdToAttack && isAttacking)
                 currentWeapon.fire();
 
+        if (akimboWeapon)
+        {
+            if(akimboWeapon.holdToAttack && akimboAttacking)
+                akimboWeapon.fire();
+        }
 
-        Vector3 tempMove = rb.linearVelocity;
+
+                Vector3 tempMove = rb.linearVelocity;
 
         tempMove.x = moveInput.x * speed;
         tempMove.z = moveInput.y * speed;
@@ -180,14 +188,27 @@ public class PlayerController : MonoBehaviour
             else if (currentWeapon)
                 Reload();
         }
-    }    
+    }
 
     public void Reload()
     {
-        if(currentWeapon)
-            if(!currentWeapon.reloading)
-                currentWeapon.reload();
+        if (currentWeapon)
+        {
+            if (akimboWeapon && canReloadAkimbo)
+            {
+                if (!akimboWeapon.reloading)
+                {
+                    akimboWeapon.reload();
+                }
+            }
+            else if(akimboWeapon && !canReloadAkimbo)
                 akimboWeapon.GetComponent<WeaponScript>().unequip();
+
+            if (!currentWeapon.reloading)
+            {
+                currentWeapon.reload();
+            }
+        }
     }
 
     public void Attack(InputAction.CallbackContext context)
@@ -214,9 +235,9 @@ public class PlayerController : MonoBehaviour
             if (akimboWeapon.holdToAttack)
             {
                 if (context.ReadValueAsButton())
-                    isAttacking = true;
+                    akimboAttacking = true;
                 else
-                    isAttacking = false;
+                    akimboAttacking = false;
             }
 
             else if (context.ReadValueAsButton())

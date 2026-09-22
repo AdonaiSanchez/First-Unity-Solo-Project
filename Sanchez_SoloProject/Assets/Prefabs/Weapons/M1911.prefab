@@ -220,8 +220,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 744248532587528190}
-  - component: {fileID: 6689106604894797432}
   - component: {fileID: 7158306225222072782}
+  - component: {fileID: 6689106604894797432}
   m_Layer: 0
   m_Name: M1911
   m_TagString: Weapon
@@ -247,27 +247,6 @@ Transform:
   - {fileID: 393656475725550062}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &6689106604894797432
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8176722283885786640}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.04006195, y: 0.28204322, z: 0.5200939}
-  m_Center: {x: 0, y: 0.050122857, z: 0.20211935}
 --- !u!114 &7158306225222072782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,3 +279,24 @@ MonoBehaviour:
   ammo: 100
   maxAmmo: 1000
   ammoRefill: 10
+--- !u!65 &6689106604894797432
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8176722283885786640}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.04006195, y: 0.28204322, z: 0.5200939}
+  m_Center: {x: 0, y: 0.050122857, z: 0.20211935}
