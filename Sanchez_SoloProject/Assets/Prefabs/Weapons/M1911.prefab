@@ -268,6 +268,7 @@ MonoBehaviour:
   canAkimbo: 1
   weaponID: 0
   weaponName: M1911
+  weaponDmg: 20
   projLifespan: 1.5
   projVelocity: 250
   reloadCooldown: 1

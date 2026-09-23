@@ -1332,6 +1332,7 @@ MonoBehaviour:
   canAkimbo: 0
   weaponID: 1
   weaponName: AK-47
+  weaponDmg: 15
   projLifespan: 2
   projVelocity: 300
   reloadCooldown: 1

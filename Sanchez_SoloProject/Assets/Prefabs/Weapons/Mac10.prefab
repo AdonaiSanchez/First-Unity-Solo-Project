@@ -152,6 +152,7 @@ MonoBehaviour:
   canAkimbo: 1
   weaponID: 2
   weaponName: Mac-10
+  weaponDmg: 5
   projLifespan: 1.25
   projVelocity: 350
   reloadCooldown: 1.15

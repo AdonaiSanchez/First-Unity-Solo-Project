@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,6 +9,11 @@ public class MeleeEnemy : MonoBehaviour
     public bool attacking = false;
 
     public float attackCooldown = 1f;
+    public float detectionRange = 5f;
+
+    public int attackDmg = 20;
+    public int health = 50;
+    public int maxHealth = 50;
 
     public NavMeshAgent agent;
     public PlayerController player;
@@ -22,44 +28,48 @@ public class MeleeEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        float targetDistance = Vector3.Distance(player.transform.position, transform.position);
+
+        isFollowing = targetDistance <= detectionRange;
+
         if (isFollowing && !attacking)
         {
             agent.destination = player.transform.position;
         }
+
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
         
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.tag == "Player")
+        /*if (isFollowing && !attacking)
         {
-            isFollowing = true;
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "Player")
-        {
-            isFollowing = false;
-        }
+            agent.destination = player.transform.position;
+        }*/
+        
     }
 
     private void OnCollisionEnter(Collision collision)
     {
+        if(collision.gameObject.tag == "Projectile")
+        {
+            health -= collision.gameObject.GetComponent<BulletDmg>().damage;
+            Destroy(collision.gameObject);
+        }
+
         if(collision.gameObject.tag == "Player")
         {
             attacking = true;
 
             StartCoroutine("attackingCooldown");
-            //Stop guy
-            //Hurt Player
             // Run Coroutine for attack cooldown
         }
     }
 
     IEnumerator attackingCooldown()
     {
+        player.health -= attackDmg;
+
         yield return new WaitForSeconds(attackCooldown);
 
         attacking = false;

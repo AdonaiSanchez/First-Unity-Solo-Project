@@ -16,14 +16,19 @@ public class WeaponScript : MonoBehaviour
     public bool holdToAttack = true;
     public bool reloading = false;
     public bool canAkimbo = false;
+    public bool burst = false;
+    public int burstCounter;
     public int weaponID;
     public string weaponName;
 
     [Header("Weapon Stats")]
+    public int weaponDmg;
     public float projLifespan;
     public float projVelocity;
     public float reloadCooldown;
     public float rof;
+    public float burstCooldown;
+    public int burstAmt;
     public int fireModes;
     public int currentFireMode;
     public int mag;
@@ -110,27 +115,29 @@ public class WeaponScript : MonoBehaviour
             mag--;
 
             GameObject p = Instantiate(projectile, firepoint.position, firepoint.rotation);
+            p.GetComponent<BulletDmg>().damage = weaponDmg;
             p.GetComponent<Rigidbody>().AddForce(firingDirection.transform.forward * projVelocity);
             Destroy(p, projLifespan);
 
             canFire = false;
+
             StartCoroutine("cooldownFire");
         }
     }
-
-    /*
     IEnumerator burstDuration()
     {
-
+        yield return new WaitForSeconds(rof*burstAmt);
     }
-    */
 
     IEnumerator cooldownFire()
     {
         yield return new WaitForSeconds(rof);
 
-        if(mag > 0)
+        if (mag > 0)
+        {
             canFire = true;
+        }
+            
     }
 
     IEnumerator reloadingCooldown()
