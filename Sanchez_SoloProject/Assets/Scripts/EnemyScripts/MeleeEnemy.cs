@@ -3,13 +3,15 @@ using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class MeleeEnemy : MonoBehaviour
+public class BasicEnemy : MonoBehaviour
 {
     public bool isFollowing = false;
+    public bool canAttack = false;
     public bool attacking = false;
 
     public float attackCooldown = 1f;
     public float detectionRange = 5f;
+    public float attackRange = 1f;
 
     public int attackDmg = 20;
     public int health = 50;
@@ -31,22 +33,25 @@ public class MeleeEnemy : MonoBehaviour
         float targetDistance = Vector3.Distance(player.transform.position, transform.position);
 
         isFollowing = targetDistance <= detectionRange;
+        canAttack = targetDistance <= attackRange;
 
         if (isFollowing && !attacking)
         {
             agent.destination = player.transform.position;
         }
 
+        if (canAttack && !attacking)
+        {
+            attacking = true;
+            agent.destination = gameObject.transform.position;
+
+            StartCoroutine("attackingCooldown");
+        }
+
         if (health <= 0)
         {
             Destroy(gameObject);
         }
-        
-        /*if (isFollowing && !attacking)
-        {
-            agent.destination = player.transform.position;
-        }*/
-        
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -55,14 +60,6 @@ public class MeleeEnemy : MonoBehaviour
         {
             health -= collision.gameObject.GetComponent<BulletDmg>().damage;
             Destroy(collision.gameObject);
-        }
-
-        if(collision.gameObject.tag == "Player")
-        {
-            attacking = true;
-
-            StartCoroutine("attackingCooldown");
-            // Run Coroutine for attack cooldown
         }
     }
 

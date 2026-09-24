@@ -16,8 +16,9 @@ public class WeaponScript : MonoBehaviour
     public bool holdToAttack = true;
     public bool reloading = false;
     public bool canAkimbo = false;
+    public bool isAkimbo = false;
     public bool burst = false;
-    public int burstCounter;
+    public bool bursting = false;
     public int weaponID;
     public string weaponName;
 
@@ -27,7 +28,6 @@ public class WeaponScript : MonoBehaviour
     public float projVelocity;
     public float reloadCooldown;
     public float rof;
-    public float burstCooldown;
     public int burstAmt;
     public int fireModes;
     public int currentFireMode;
@@ -60,6 +60,7 @@ public class WeaponScript : MonoBehaviour
     {
         player = p;
 
+        isAkimbo = true;
         player.akimboWeapon = this;
         player.akimbo = true;
 
@@ -69,12 +70,13 @@ public class WeaponScript : MonoBehaviour
 
     public void unequip()
     {
-        if(!player.akimboWeapon)
+        if(!isAkimbo)
         {
             player.currentWeapon = null;
         }
         else
         {
+            isAkimbo = false;
             player.akimboWeapon = null;
             player.akimbo = false;
         }
@@ -121,12 +123,30 @@ public class WeaponScript : MonoBehaviour
 
             canFire = false;
 
+            if (burst)
+            {
+                bursting = true;
+
+                if (!isAkimbo)
+                    player.isAttacking = true;
+                else
+                    player.akimboAttacking = true;
+                
+                StartCoroutine("burstDuration");
+            }
+
             StartCoroutine("cooldownFire");
         }
     }
     IEnumerator burstDuration()
     {
         yield return new WaitForSeconds(rof*burstAmt);
+
+        bursting = false;
+        if (!isAkimbo)
+            player.isAttacking = false;
+        else
+            player.akimboAttacking = false;
     }
 
     IEnumerator cooldownFire()
@@ -137,7 +157,6 @@ public class WeaponScript : MonoBehaviour
         {
             canFire = true;
         }
-            
     }
 
     IEnumerator reloadingCooldown()

@@ -7,6 +7,9 @@ public class PlayerController : MonoBehaviour
     public int maxHealth = 100;
     public int health = 100;
 
+    public int inkCartridges;
+    public int paperSheets;
+
     public float speed = 5.0f;
     public float jumpHeight = 10.0f;
     public float jumpDetectDistance = 1f;
@@ -84,12 +87,12 @@ public class PlayerController : MonoBehaviour
             pickupObj = null;
 
         if (currentWeapon)
-            if (currentWeapon.holdToAttack && isAttacking)
+            if ((currentWeapon.holdToAttack || currentWeapon.burst) && isAttacking)
                 currentWeapon.fire();
 
         if (akimboWeapon)
         {
-            if(akimboWeapon.holdToAttack && akimboAttacking)
+            if((akimboWeapon.holdToAttack || akimboWeapon.burst) && akimboAttacking)
                 akimboWeapon.fire();
         }
 
@@ -222,8 +225,7 @@ public class PlayerController : MonoBehaviour
                 else
                     isAttacking = false;
             }
-
-            else if (context.ReadValueAsButton())
+            else if (context.ReadValueAsButton() && !currentWeapon.bursting)
                 currentWeapon.fire();
         }    
     }
@@ -240,7 +242,7 @@ public class PlayerController : MonoBehaviour
                     akimboAttacking = false;
             }
 
-            else if (context.ReadValueAsButton())
+            else if (context.ReadValueAsButton() && !akimboWeapon.bursting)
                 akimboWeapon.fire();
         }
     }
