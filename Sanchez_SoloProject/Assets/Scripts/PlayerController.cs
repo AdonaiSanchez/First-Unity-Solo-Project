@@ -105,11 +105,12 @@ public class PlayerController : MonoBehaviour
         rb.linearVelocity = (tempMove.x * transform.right) + (tempMove.y * transform.up) + (tempMove.z * transform.forward);
     }
 
-    private void OnCollsionEnter(Collider collision)
+    private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Hazard")
+        if (collision.gameObject.tag == "Projectile")
         {
-            health--;
+            health -= collision.gameObject.GetComponent<BulletDmg>().damage;
+            Destroy(collision.gameObject);
         }
     }
 

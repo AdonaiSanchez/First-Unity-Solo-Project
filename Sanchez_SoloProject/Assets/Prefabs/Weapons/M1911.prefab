@@ -266,13 +266,17 @@ MonoBehaviour:
   holdToAttack: 0
   reloading: 0
   canAkimbo: 1
+  isAkimbo: 0
+  burst: 0
+  bursting: 0
   weaponID: 0
   weaponName: M1911
   weaponDmg: 20
   projLifespan: 1.5
   projVelocity: 250
   reloadCooldown: 1
-  rof: 0.25
+  rof: 0.01
+  burstAmt: 0
   fireModes: 0
   currentFireMode: 0
   mag: 7

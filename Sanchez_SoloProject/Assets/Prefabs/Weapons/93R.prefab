@@ -450,16 +450,16 @@ MonoBehaviour:
   holdToAttack: 0
   reloading: 0
   canAkimbo: 1
+  isAkimbo: 0
   burst: 1
   bursting: 0
   weaponID: 3
   weaponName: 93R
-  weaponDmg: 12
+  weaponDmg: 8
   projLifespan: 1.5
   projVelocity: 300
   reloadCooldown: 0.75
   rof: 0.03
-  burstCooldown: 0
   burstAmt: 3
   fireModes: 0
   currentFireMode: 0

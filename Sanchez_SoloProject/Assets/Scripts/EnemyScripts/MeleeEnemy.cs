@@ -12,6 +12,7 @@ public class BasicEnemy : MonoBehaviour
     public float attackCooldown = 1f;
     public float detectionRange = 5f;
     public float attackRange = 1f;
+    public float attackSpeed = 1f;
 
     public int attackDmg = 20;
     public int health = 50;
@@ -44,8 +45,13 @@ public class BasicEnemy : MonoBehaviour
         {
             attacking = true;
             agent.destination = gameObject.transform.position;
+            
+            if (canAttack)
+            {
+               player.health -= attackDmg;
+            }
 
-            StartCoroutine("attackingCooldown");
+            StartCoroutine("attackCharge");
         }
 
         if (health <= 0)
@@ -63,10 +69,15 @@ public class BasicEnemy : MonoBehaviour
         }
     }
 
+    IEnumerator attackCharge()
+    {
+        yield return new WaitForSeconds(attackSpeed);
+
+        StartCoroutine("attackingCooldown");
+    }
+
     IEnumerator attackingCooldown()
     {
-        player.health -= attackDmg;
-
         yield return new WaitForSeconds(attackCooldown);
 
         attacking = false;
