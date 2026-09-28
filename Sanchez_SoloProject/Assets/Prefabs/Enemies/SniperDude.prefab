@@ -498,7 +498,7 @@ GameObject:
   - component: {fileID: 7728951575606866086}
   - component: {fileID: 3699848948701312987}
   m_Layer: 0
-  m_Name: PistolDude
+  m_Name: SniperDude
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -641,20 +641,20 @@ MonoBehaviour:
   canAttack: 0
   attacking: 0
   attackCooldown: 1
-  detectionRange: 35
-  attackRange: 15
-  attackSpeed: 0.2
-  attackDmg: 10
-  health: 100
-  maxHealth: 100
+  detectionRange: 75
+  attackRange: 70
+  attackSpeed: 1
+  attackDmg: 50
+  health: 30
+  maxHealth: 30
   agent: {fileID: 0}
   player: {fileID: 0}
   warning: {fileID: 0}
-  stationary: 0
+  stationary: 1
   firepoint: {fileID: 0}
   projectile: {fileID: 3999810311166122512, guid: eaf91ed1726e29b44bddbf844d2ff6e8, type: 3}
-  projVelocity: 250
-  projLifespan: 1.5
+  projVelocity: 1000
+  projLifespan: 5
 --- !u!1 &6397967141867263368
 GameObject:
   m_ObjectHideFlags: 0

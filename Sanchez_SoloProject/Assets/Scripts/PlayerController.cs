@@ -65,7 +65,18 @@ public class PlayerController : MonoBehaviour
     {
         if(health <= 0)
         {
+            if (currentWeapon && akimboWeapon)
+            {
+                akimboWeapon.unequip();
+                currentWeapon.unequip();
+            }
+            else if (currentWeapon)
+            {
+                currentWeapon.unequip();
+            }
 
+            transform.SetPositionAndRotation(GameObject.Find("Spawnpoint").transform.position, GameObject.Find("Spawnpoint").transform.rotation);
+            health = maxHealth;
         }
 
         jumpRay.origin = transform.position;

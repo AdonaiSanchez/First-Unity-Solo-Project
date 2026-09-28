@@ -1,5 +1,6 @@
 using System.Collections;
 using Unity.Cinemachine;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -20,10 +21,12 @@ public class BasicEnemy : MonoBehaviour
 
     public NavMeshAgent agent;
     public PlayerController player;
+    public GameObject warning;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        warning = transform.GetChild(0).gameObject;
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
@@ -45,11 +48,6 @@ public class BasicEnemy : MonoBehaviour
         {
             attacking = true;
             agent.destination = gameObject.transform.position;
-            
-            if (canAttack)
-            {
-               player.health -= attackDmg;
-            }
 
             StartCoroutine("attackCharge");
         }
@@ -69,9 +67,23 @@ public class BasicEnemy : MonoBehaviour
         }
     }
 
+    virtual public void Attack()
+    {
+        if (canAttack)
+        {
+            player.health -= attackDmg;
+        }
+    }
+
     IEnumerator attackCharge()
     {
+        warning.SetActive(true);
+
         yield return new WaitForSeconds(attackSpeed);
+
+        warning.SetActive(false);
+
+        Attack();
 
         StartCoroutine("attackingCooldown");
     }

@@ -28,6 +28,7 @@ public class WeaponScript : MonoBehaviour
     public float projVelocity;
     public float reloadCooldown;
     public float rof;
+    public float burstCool;
     public int burstAmt;
     public int fireModes;
     public int currentFireMode;
@@ -138,15 +139,23 @@ public class WeaponScript : MonoBehaviour
             StartCoroutine("cooldownFire");
         }
     }
+
+    IEnumerator burstCooldown()
+    {
+        yield return new WaitForSeconds(burstCool);
+
+        bursting = false;
+    }
     IEnumerator burstDuration()
     {
         yield return new WaitForSeconds(rof*burstAmt);
 
-        bursting = false;
         if (!isAkimbo)
             player.isAttacking = false;
         else
             player.akimboAttacking = false;
+        
+        StartCoroutine("burstCooldown");
     }
 
     IEnumerator cooldownFire()

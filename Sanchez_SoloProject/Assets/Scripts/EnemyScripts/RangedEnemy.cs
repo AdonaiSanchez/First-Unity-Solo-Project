@@ -4,6 +4,8 @@ using UnityEngine.AI;
 
 public class RangedEnemy : BasicEnemy
 {
+    public bool stationary = false;
+
     public Transform firepoint;
     public GameObject projectile;
 
@@ -12,9 +14,10 @@ public class RangedEnemy : BasicEnemy
 
     void Start()
     {
+        warning = transform.GetChild(0).gameObject;
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        firepoint = transform.GetChild(0);
+        firepoint = transform.GetChild(1);
     }
 
     void Update()
@@ -24,9 +27,14 @@ public class RangedEnemy : BasicEnemy
         isFollowing = targetDistance <= detectionRange;
         canAttack = targetDistance <= attackRange;
 
-        if (isFollowing && !attacking)
+        if (isFollowing && !attacking && !stationary)
         {
             agent.destination = player.transform.position;
+        }
+
+        if (canAttack)
+        {
+            transform.LookAt(player.transform.position);
         }
 
         if (canAttack && !attacking)
@@ -34,20 +42,23 @@ public class RangedEnemy : BasicEnemy
             attacking = true;
             agent.destination = gameObject.transform.position;
 
-            if (canAttack)
-            {
-                GameObject p = Instantiate(projectile, firepoint.position, gameObject.transform.rotation);
-                p.GetComponent<BulletDmg>().damage = attackDmg;
-                p.GetComponent<Rigidbody>().AddForce(gameObject.transform.forward * projVelocity);
-                Destroy(p, projLifespan);
-            }
-
             StartCoroutine("attackCharge");
         }
 
         if (health <= 0)
         {
             Destroy(gameObject);
+        }
+    }
+
+    override public void Attack()
+    {
+        if (canAttack)
+        {
+            GameObject p = Instantiate(projectile, firepoint.position, gameObject.transform.rotation);
+            p.GetComponent<BulletDmg>().damage = attackDmg;
+            p.GetComponent<Rigidbody>().AddForce(gameObject.transform.forward * projVelocity);
+            Destroy(p, projLifespan);
         }
     }
 }

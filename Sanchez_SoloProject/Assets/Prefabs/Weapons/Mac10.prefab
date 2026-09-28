@@ -150,13 +150,18 @@ MonoBehaviour:
   holdToAttack: 1
   reloading: 0
   canAkimbo: 1
+  isAkimbo: 0
+  burst: 0
+  bursting: 0
   weaponID: 2
   weaponName: Mac-10
   weaponDmg: 5
-  projLifespan: 1.25
+  projLifespan: 0.4
   projVelocity: 350
   reloadCooldown: 1.15
   rof: 0.05
+  burstCool: 0
+  burstAmt: 0
   fireModes: 0
   currentFireMode: 0
   mag: 40
