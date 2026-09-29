@@ -273,7 +273,7 @@ MonoBehaviour:
   weaponName: M1911
   weaponDmg: 20
   projLifespan: 0.5
-  projVelocity: 250
+  projVelocity: 2500
   reloadCooldown: 1
   rof: 0.01
   burstCool: 0

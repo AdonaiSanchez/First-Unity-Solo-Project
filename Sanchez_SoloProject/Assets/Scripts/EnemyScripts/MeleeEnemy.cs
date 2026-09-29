@@ -6,6 +6,7 @@ using UnityEngine.AI;
 
 public class BasicEnemy : MonoBehaviour
 {
+    public bool canLunge = false;
     public bool isFollowing = false;
     public bool canAttack = false;
     public bool attacking = false;
@@ -14,6 +15,8 @@ public class BasicEnemy : MonoBehaviour
     public float detectionRange = 5f;
     public float attackRange = 1f;
     public float attackSpeed = 1f;
+    public float lungeRange = 5f;
+    public float lungeCool = 2f;
 
     public int attackDmg = 20;
     public int health = 50;
@@ -38,6 +41,7 @@ public class BasicEnemy : MonoBehaviour
 
         isFollowing = targetDistance <= detectionRange;
         canAttack = targetDistance <= attackRange;
+        canLunge = targetDistance <= lungeRange;
 
         if (isFollowing && !attacking)
         {
@@ -60,7 +64,7 @@ public class BasicEnemy : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Projectile")
+        if (collision.gameObject.tag == "Projectile")
         {
             health -= collision.gameObject.GetComponent<BulletDmg>().damage;
             Destroy(collision.gameObject);
@@ -73,6 +77,24 @@ public class BasicEnemy : MonoBehaviour
         {
             player.health -= attackDmg;
         }
+    }
+
+    IEnumerator lungeDuration()
+    {
+        agent.speed = 6f;
+        canLunge = false;
+
+        yield return new WaitForSeconds(1.5f);
+
+        agent.speed = 2f;
+        StartCoroutine("lungeCooldown");
+    }
+
+    IEnumerator lungeCooldown()
+    {
+        yield return new WaitForSeconds(lungeCool);
+
+        canLunge = true;
     }
 
     IEnumerator attackCharge()

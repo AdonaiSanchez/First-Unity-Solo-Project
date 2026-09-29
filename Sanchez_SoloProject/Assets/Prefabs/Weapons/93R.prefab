@@ -548,7 +548,7 @@ MonoBehaviour:
   weaponName: 93R
   weaponDmg: 8
   projLifespan: 0.5
-  projVelocity: 300
+  projVelocity: 3000
   reloadCooldown: 0.75
   rof: 0.03
   burstCool: 0.1

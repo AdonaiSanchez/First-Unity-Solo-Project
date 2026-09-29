@@ -1337,7 +1337,7 @@ MonoBehaviour:
   weaponName: AK-47
   weaponDmg: 20
   projLifespan: 0.75
-  projVelocity: 500
+  projVelocity: 5000
   reloadCooldown: 1
   rof: 0.15
   burstCool: 0

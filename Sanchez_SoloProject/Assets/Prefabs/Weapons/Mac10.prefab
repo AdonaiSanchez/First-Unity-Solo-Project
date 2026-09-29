@@ -157,7 +157,7 @@ MonoBehaviour:
   weaponName: Mac-10
   weaponDmg: 5
   projLifespan: 0.4
-  projVelocity: 350
+  projVelocity: 3500
   reloadCooldown: 1.15
   rof: 0.05
   burstCool: 0

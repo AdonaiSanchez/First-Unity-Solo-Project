@@ -653,7 +653,7 @@ MonoBehaviour:
   stationary: 1
   firepoint: {fileID: 0}
   projectile: {fileID: 3999810311166122512, guid: eaf91ed1726e29b44bddbf844d2ff6e8, type: 3}
-  projVelocity: 1000
+  projVelocity: 10000
   projLifespan: 5
 --- !u!1 &6397967141867263368
 GameObject:

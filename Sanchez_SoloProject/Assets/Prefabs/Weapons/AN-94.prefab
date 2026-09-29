@@ -636,7 +636,7 @@ MonoBehaviour:
   weaponName: AN-94
   weaponDmg: 15
   projLifespan: 0.75
-  projVelocity: 500
+  projVelocity: 5000
   reloadCooldown: 1.5
   rof: 0.04
   burstCool: 0.2
