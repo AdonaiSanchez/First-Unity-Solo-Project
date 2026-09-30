@@ -5,6 +5,7 @@ using UnityEngine.AI;
 public class RangedEnemy : BasicEnemy
 {
     public bool stationary = false;
+    public bool friendlyBlocking = false;
 
     public Transform firepoint;
     public GameObject projectile;
@@ -12,12 +13,16 @@ public class RangedEnemy : BasicEnemy
     public float projVelocity;
     public float projLifespan;
 
+    Ray friendlyCheck;
+
     void Start()
     {
         warning = transform.GetChild(0).gameObject;
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         firepoint = transform.GetChild(1);
+
+        friendlyCheck = new Ray();
     }
 
     void Update()
@@ -25,7 +30,14 @@ public class RangedEnemy : BasicEnemy
         float targetDistance = Vector3.Distance(player.transform.position, transform.position);
 
         isFollowing = targetDistance <= detectionRange;
-        canAttack = targetDistance <= attackRange;
+
+        friendlyCheck.origin = firepoint.transform.position;
+        friendlyCheck.direction = firepoint.transform.forward;
+
+        if (targetDistance <= detectionRange && !friendlyBlocking)
+            canAttack = true;
+        else
+            canAttack = false;
 
         if (isFollowing && !attacking && !stationary)
         {

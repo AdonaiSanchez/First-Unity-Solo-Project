@@ -10,6 +10,7 @@ public class BasicEnemy : MonoBehaviour
     public bool isFollowing = false;
     public bool canAttack = false;
     public bool attacking = false;
+    public bool lunging;
 
     public float attackCooldown = 1f;
     public float detectionRange = 5f;
@@ -81,12 +82,12 @@ public class BasicEnemy : MonoBehaviour
 
     IEnumerator lungeDuration()
     {
-        agent.speed = 6f;
-        canLunge = false;
+        agent.speed = 8f;
+        lunging = false;
 
         yield return new WaitForSeconds(1.5f);
 
-        agent.speed = 2f;
+        agent.speed = 3.5f;
         StartCoroutine("lungeCooldown");
     }
 
@@ -94,7 +95,7 @@ public class BasicEnemy : MonoBehaviour
     {
         yield return new WaitForSeconds(lungeCool);
 
-        canLunge = true;
+        lunging = false;
     }
 
     IEnumerator attackCharge()

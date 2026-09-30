@@ -461,13 +461,14 @@ MonoBehaviour:
   isFollowing: 0
   canAttack: 0
   attacking: 0
+  lunging: 0
   attackCooldown: 1
   detectionRange: 15
-  attackRange: 1
-  attackSpeed: 0.5
+  attackRange: 2
+  attackSpeed: 0.05
   lungeRange: 5
   lungeCool: 2
-  attackDmg: 10
+  attackDmg: 25
   health: 50
   maxHealth: 50
   agent: {fileID: 0}

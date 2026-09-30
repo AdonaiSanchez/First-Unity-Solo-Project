@@ -4,23 +4,40 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+
+    [Header("Player Stats")]
     public int maxHealth = 100;
     public int health = 100;
-
+    public int maxArmor = 150;
+    public int armor;
+    
     public int inkCartridges;
     public int paperSheets;
-
+    
     public float speed = 5.0f;
+    public float sprintBoost = 1.5f;
     public float jumpHeight = 10.0f;
+
+    [Header("Meta Stats")]
     public float jumpDetectDistance = 1f;
     public float interactDistance = 5f;
     public float fireDmgTickrate = 0.1f;
-
+    public float damageMult = 1f;
+    
+    public bool canReloadAkimbo = false;
     public bool isAttacking;
     public bool akimboAttacking;
     public bool fireDmg = false;
     public bool akimbo = false;
-    public bool canReloadAkimbo = false;
+
+    public bool onGround = true;
+    
+    public bool canSprint = false;
+    public bool sprinting = false;
+    public bool toggleSprint = false;
+    public bool sprintLock = false;
+
+    public bool armored = false;
 
     Ray jumpRay;
     Ray interactRay;
@@ -82,6 +99,8 @@ public class PlayerController : MonoBehaviour
         jumpRay.origin = transform.position;
         jumpRay.direction = -transform.up;
 
+        onGround = Physics.Raycast(jumpRay, jumpDetectDistance);
+
         interactRay.origin = playerCam.transform.position;
         interactRay.direction = playerCam.transform.forward;
 
@@ -108,10 +127,24 @@ public class PlayerController : MonoBehaviour
         }
 
 
-                Vector3 tempMove = rb.linearVelocity;
+        Vector3 tempMove = rb.linearVelocity;
 
         tempMove.x = moveInput.x * speed;
         tempMove.z = moveInput.y * speed;
+
+        if (sprinting)
+        {
+            tempMove.z *= sprintBoost;
+            tempMove.x *= sprintBoost;
+        }
+
+        /*if (!sprinting)
+        {
+            if (!canSprint)
+            {
+
+            }
+        }*/
 
         rb.linearVelocity = (tempMove.x * transform.right) + (tempMove.y * transform.up) + (tempMove.z * transform.forward);
     }
@@ -148,24 +181,31 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    IEnumerator fireDmgCooldown()
-    {
-        fireDmg = true;
-
-        yield return new WaitForSeconds(fireDmgTickrate);
-
-        health--;
-        fireDmg = false;
-    }
-
     public void Move(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
     }
 
+    public void Sprint(InputAction.CallbackContext context)
+    {
+        if (onGround)
+        {
+            if (!toggleSprint)
+            {
+                if (context.ReadValueAsButton())
+                    sprinting = true;
+                else
+                    sprinting = false;
+            }
+            else
+                if (context.performed)
+                    sprinting = !sprinting;
+        }
+    }
+
     public void Jump()
     {
-        if (Physics.Raycast(jumpRay, jumpDetectDistance))
+        if (onGround)
             rb.AddForce(transform.up * jumpHeight, ForceMode.Impulse);
     }
 
@@ -267,5 +307,15 @@ public class PlayerController : MonoBehaviour
         }
         else if (akimboWeapon)
             akimboWeapon.GetComponent<WeaponScript>().unequip();
+    }
+
+    IEnumerator fireDmgCooldown()
+    {
+        fireDmg = true;
+
+        yield return new WaitForSeconds(fireDmgTickrate);
+
+        health--;
+        fireDmg = false;
     }
 }

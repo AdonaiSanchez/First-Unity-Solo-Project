@@ -1824,7 +1824,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8366426046125223342, guid: a051a253897453d429e5ecb04dff2274, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 105.32
+      value: 111.3
       objectReference: {fileID: 0}
     - target: {fileID: 8366426046125223342, guid: a051a253897453d429e5ecb04dff2274, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2250,18 +2250,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   maxHealth: 100
   health: 100
+  maxArmor: 150
+  armor: 0
   inkCartridges: 0
   paperSheets: 0
   speed: 5
+  sprintBoost: 1.5
   jumpHeight: 2.5
   jumpDetectDistance: 1.1
   interactDistance: 5
   fireDmgTickrate: 0.05
+  damageMult: 1
+  canReloadAkimbo: 0
   isAttacking: 0
   akimboAttacking: 0
   fireDmg: 0
   akimbo: 0
-  canReloadAkimbo: 0
+  onGround: 1
+  canSprint: 0
+  sprinting: 0
+  toggleSprint: 0
+  sprintLock: 0
+  armored: 0
   currentWeapon: {fileID: 0}
   akimboWeapon: {fileID: 0}
   weaponSlot: {fileID: 0}
@@ -2373,7 +2383,19 @@ MonoBehaviour:
     m_ActionId: b7230bb6-fc9b-4f52-8b25-f5e19cb2c2ba
     m_ActionName: 'Player/Next[/Keyboard/2]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 727189971}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: Sprint
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 641cd816-40e6-41b4-8c3d-04687c349290
     m_ActionName: 'Player/Sprint[/Keyboard/leftShift]'
   - m_PersistentCalls:

@@ -10,17 +10,22 @@ public class DashEnemy : BasicEnemy
         isFollowing = targetDistance <= detectionRange;
         canAttack = targetDistance <= attackRange;
         canLunge = targetDistance <= lungeRange;
-
+        
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
+        
         if (isFollowing && !attacking)
         {
             agent.destination = player.transform.position;
-        }
 
-        if (canLunge && !attacking && !canAttack)
-        {
-            StartCoroutine("lungeDuration");
+            if (canLunge && !lunging)
+            {
+                StartCoroutine("lungeDuration");
+            }
         }
-
+        
         if (canAttack && !attacking)
         {
             attacking = true;
@@ -28,10 +33,15 @@ public class DashEnemy : BasicEnemy
 
             StartCoroutine("attackCharge");
         }
+    }
 
-        if (health <= 0)
-        {
-            Destroy(gameObject);
+    public override void Attack()
+    {
+        if (canAttack)
+        {   
+            StopCoroutine("lungeDuration");
+            StartCoroutine("lungeCooldown");
+            player.health -= attackDmg;
         }
     }
 }
