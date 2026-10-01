@@ -64,9 +64,6 @@ public class PlayerController : MonoBehaviour
 
         interactRay = new Ray();
         jumpRay = new Ray();
-
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
 
     private void FixedUpdate()

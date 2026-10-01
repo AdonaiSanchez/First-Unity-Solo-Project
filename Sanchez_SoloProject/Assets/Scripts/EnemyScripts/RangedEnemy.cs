@@ -14,6 +14,7 @@ public class RangedEnemy : BasicEnemy
     public float projLifespan;
 
     Ray friendlyCheck;
+    RaycastHit friendlyHit;
 
     void Start()
     {
@@ -34,7 +35,19 @@ public class RangedEnemy : BasicEnemy
         friendlyCheck.origin = firepoint.transform.position;
         friendlyCheck.direction = firepoint.transform.forward;
 
-        if (targetDistance <= detectionRange && !friendlyBlocking)
+        if (Physics.Raycast(friendlyCheck, out friendlyHit, projVelocity*projLifespan))
+        {
+            if (friendlyHit.collider.tag == "Enemy")
+            {
+                friendlyBlocking = true;
+            }
+            else
+                friendlyBlocking = false;
+        }
+        else
+            friendlyBlocking = false;
+
+        if (targetDistance <= attackRange && !friendlyBlocking)
             canAttack = true;
         else
             canAttack = false;

@@ -10,6 +10,8 @@ TagManager:
   - EndLevel
   - Enemy
   - Projectile
+  - Pause
+  - Teleporter
   layers:
   - Default
   - TransparentFX

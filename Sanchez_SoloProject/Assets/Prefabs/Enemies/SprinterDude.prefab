@@ -463,14 +463,14 @@ MonoBehaviour:
   attacking: 0
   lunging: 0
   attackCooldown: 1
-  detectionRange: 15
+  detectionRange: 25
   attackRange: 2
   attackSpeed: 0.05
   lungeRange: 5
   lungeCool: 2
   attackDmg: 25
-  health: 50
-  maxHealth: 50
+  health: 100
+  maxHealth: 100
   agent: {fileID: 0}
   player: {fileID: 0}
   warning: {fileID: 0}
