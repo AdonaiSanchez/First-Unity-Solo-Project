@@ -26,10 +26,12 @@ public class BasicEnemy : MonoBehaviour
     public NavMeshAgent agent;
     public PlayerController player;
     public GameObject warning;
+    public GameObject gameManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        gameManager = GameObject.Find("GameManager");
         warning = transform.GetChild(0).gameObject;
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
@@ -40,11 +42,10 @@ public class BasicEnemy : MonoBehaviour
     {
         float targetDistance = Vector3.Distance(player.transform.position, transform.position);
 
-        isFollowing = targetDistance <= detectionRange;
         canAttack = targetDistance <= attackRange;
         canLunge = targetDistance <= lungeRange;
 
-        if (isFollowing && !attacking)
+        if (!attacking)
         {
             agent.destination = player.transform.position;
         }
@@ -60,6 +61,8 @@ public class BasicEnemy : MonoBehaviour
         if (health <= 0)
         {
             Destroy(gameObject);
+
+            gameManager.GetComponent<GameManager>().enemiesAlive--;
         }
     }
 

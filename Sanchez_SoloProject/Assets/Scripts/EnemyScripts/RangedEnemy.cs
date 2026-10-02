@@ -18,6 +18,7 @@ public class RangedEnemy : BasicEnemy
 
     void Start()
     {
+        gameManager = GameObject.Find("GameManager");
         warning = transform.GetChild(0).gameObject;
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
@@ -29,8 +30,6 @@ public class RangedEnemy : BasicEnemy
     void Update()
     {
         float targetDistance = Vector3.Distance(player.transform.position, transform.position);
-
-        isFollowing = targetDistance <= detectionRange;
 
         friendlyCheck.origin = firepoint.transform.position;
         friendlyCheck.direction = firepoint.transform.forward;
@@ -52,7 +51,7 @@ public class RangedEnemy : BasicEnemy
         else
             canAttack = false;
 
-        if (isFollowing && !attacking && !stationary)
+        if (!attacking && !stationary)
         {
             agent.destination = player.transform.position;
         }
@@ -73,6 +72,8 @@ public class RangedEnemy : BasicEnemy
         if (health <= 0)
         {
             Destroy(gameObject);
+
+            gameManager.GetComponent<GameManager>().enemiesAlive--;
         }
     }
 

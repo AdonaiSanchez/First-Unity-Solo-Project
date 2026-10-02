@@ -12,6 +12,7 @@ TagManager:
   - Projectile
   - Pause
   - Teleporter
+  - Spawner
   layers:
   - Default
   - TransparentFX

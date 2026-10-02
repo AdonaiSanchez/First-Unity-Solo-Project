@@ -14,6 +14,8 @@ public class DashEnemy : BasicEnemy
         if (health <= 0)
         {
             Destroy(gameObject);
+
+            gameManager.GetComponent<GameManager>().enemiesAlive--;
         }
         
         if (isFollowing && !attacking)

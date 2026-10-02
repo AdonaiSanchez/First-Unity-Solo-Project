@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,7 +14,16 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI magText;
     public TextMeshProUGUI akimboText;
 
+    public TextMeshProUGUI waveText;
+
     public GameObject pauseMenu;
+
+    public int enemiesAlive;
+    public int enemiesSpawned;
+    public int enemyCap = 10;
+    public int waveCount;
+
+    public float waveCountdown = 5f;
 
     public bool paused = false;
 
@@ -35,6 +45,8 @@ public class GameManager : MonoBehaviour
             ammoText = GameObject.Find("AmmoCounter").GetComponent<TextMeshProUGUI>();
             magText = GameObject.Find("MagCounter").GetComponent<TextMeshProUGUI>();
             akimboText = GameObject.Find("AkimboCounter").GetComponent<TextMeshProUGUI>();
+
+            waveText = GameObject.Find("WaveCounter").GetComponent<TextMeshProUGUI>();
         }
 
     }
@@ -45,6 +57,8 @@ public class GameManager : MonoBehaviour
         if (SceneManager.GetActiveScene().buildIndex != 0)
         {
             healthBar.fillAmount = (float)player.health / (float)player.maxHealth;
+
+            waveText.text = "Wave: " + waveCount + " Enemies Left: " + enemiesSpawned + "/" + enemyCap;
 
             if(player.currentWeapon)
             {
@@ -63,6 +77,13 @@ public class GameManager : MonoBehaviour
                 ammoText.text = "";
                 magText.text = "";
                 akimboText.text = "";
+            }
+
+
+
+            if(enemiesAlive == 0)
+            {
+                StartCoroutine("resetWave");
             }
         }
             
@@ -107,5 +128,15 @@ public class GameManager : MonoBehaviour
     public void Quit()
     {
         Application.Quit();
+    }
+
+    IEnumerator resetWave()
+    {
+        yield return new WaitForSeconds(waveCountdown);
+
+        enemiesSpawned = 0;
+        enemyCap += 5;
+
+        StopCoroutine("resetWave");
     }
 }
