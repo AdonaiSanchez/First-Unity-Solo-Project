@@ -26,6 +26,7 @@ public class Spawner : MonoBehaviour
         if(canSpawn && !spawnerBlocked && gameManager.GetComponent<GameManager>().enemiesSpawned < gameManager.GetComponent<GameManager>().enemyCap)
         {
             GameObject p = Instantiate(enemyType, spawnpoint.position, spawnpoint.rotation);
+            spawnerBlocked = true;
             gameManager.GetComponent<GameManager>().enemiesAlive++;
             gameManager.GetComponent<GameManager>().enemiesSpawned++;
 
@@ -35,10 +36,16 @@ public class Spawner : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other);
         if (other.gameObject.tag == "Player")
         {
             spawnerBlocked = true;
         }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        Debug.Log(other);
     }
 
     private void OnTriggerExit(Collider other)

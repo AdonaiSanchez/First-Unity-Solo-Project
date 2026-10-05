@@ -7,7 +7,6 @@ public class DashEnemy : BasicEnemy
     {
         float targetDistance = Vector3.Distance(player.transform.position, transform.position);
 
-        isFollowing = targetDistance <= detectionRange;
         canAttack = targetDistance <= attackRange;
         canLunge = targetDistance <= lungeRange;
         
@@ -18,7 +17,7 @@ public class DashEnemy : BasicEnemy
             gameManager.GetComponent<GameManager>().enemiesAlive--;
         }
         
-        if (isFollowing && !attacking)
+        if (!attacking)
         {
             agent.destination = player.transform.position;
 

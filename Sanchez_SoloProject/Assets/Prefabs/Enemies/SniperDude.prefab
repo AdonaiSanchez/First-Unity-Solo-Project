@@ -637,20 +637,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b412a0574a4b6a40affe699c42ea821, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RangedEnemy
+  canLunge: 0
   isFollowing: 0
   canAttack: 0
   attacking: 0
+  lunging: 0
   attackCooldown: 1
   detectionRange: 75
   attackRange: 70
   attackSpeed: 1
-  attackDmg: 50
+  lungeRange: 5
+  lungeCool: 2
+  attackDmg: 25
   health: 30
   maxHealth: 30
   agent: {fileID: 0}
   player: {fileID: 0}
   warning: {fileID: 0}
+  gameManager: {fileID: 0}
   stationary: 1
+  friendlyBlocking: 0
   firepoint: {fileID: 0}
   projectile: {fileID: 3999810311166122512, guid: eaf91ed1726e29b44bddbf844d2ff6e8, type: 3}
   projVelocity: 10000
