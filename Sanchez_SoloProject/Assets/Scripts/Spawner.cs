@@ -8,8 +8,11 @@ public class Spawner : MonoBehaviour
     public GameObject gameManager;
     public Transform spawnpoint;
 
+    public int waveLock;
+
     public float spawnCool = 1f;
 
+    public bool singleSpawn = false;
     public bool spawnerBlocked;
     public bool canSpawn = true;
 
@@ -23,10 +26,9 @@ public class Spawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(canSpawn && !spawnerBlocked && gameManager.GetComponent<GameManager>().enemiesSpawned < gameManager.GetComponent<GameManager>().enemyCap)
+        if(canSpawn && !spawnerBlocked && gameManager.GetComponent<GameManager>().enemiesSpawned < gameManager.GetComponent<GameManager>().enemyCap && gameManager.GetComponent<GameManager>().waveCount >= waveLock && gameManager.GetComponent<GameManager>().wavesActive == true)
         {
             GameObject p = Instantiate(enemyType, spawnpoint.position, spawnpoint.rotation);
-            spawnerBlocked = true;
             gameManager.GetComponent<GameManager>().enemiesAlive++;
             gameManager.GetComponent<GameManager>().enemiesSpawned++;
 
@@ -36,16 +38,10 @@ public class Spawner : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other);
         if (other.gameObject.tag == "Player")
         {
             spawnerBlocked = true;
         }
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        Debug.Log(other);
     }
 
     private void OnTriggerExit(Collider other)

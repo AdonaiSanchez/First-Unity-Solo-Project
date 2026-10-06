@@ -13,6 +13,7 @@ TagManager:
   - Pause
   - Teleporter
   - Spawner
+  - StartWave
   layers:
   - Default
   - TransparentFX

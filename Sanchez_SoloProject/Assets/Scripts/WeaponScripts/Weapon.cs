@@ -47,6 +47,8 @@ public class WeaponScript : MonoBehaviour
         firingDirection = Camera.main;
     }
 
+    //OnCollisionStay
+
     public void equip(PlayerController p)
     {
         player = p;

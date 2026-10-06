@@ -650,12 +650,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3239878288537948042, guid: f3891cc969a49d243814548bc6aecbb9, type: 3}
+      propertyPath: waveLock
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3239878288537948042, guid: f3891cc969a49d243814548bc6aecbb9, type: 3}
       propertyPath: enemyType
       value: 
       objectReference: {fileID: 5855750556128636665, guid: 671f50226517b8d4da09fd8f82199af3, type: 3}
     - target: {fileID: 3239878288537948042, guid: f3891cc969a49d243814548bc6aecbb9, type: 3}
       propertyPath: spawnCool
-      value: 35
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

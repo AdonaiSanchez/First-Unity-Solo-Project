@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine.InputSystem.Android;
 
 public class GameManager : MonoBehaviour
 {
@@ -23,9 +24,13 @@ public class GameManager : MonoBehaviour
     public int enemyCap = 10;
     public int waveCount;
 
+    public float intermissionTime;
     public float waveCountdown = 5f;
 
     public bool paused = false;
+    public bool incTimer = true;
+    public bool intermission = false;
+    public bool wavesActive = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -57,10 +62,18 @@ public class GameManager : MonoBehaviour
         if (SceneManager.GetActiveScene().buildIndex != 0)
         {
             healthBar.fillAmount = (float)player.health / (float)player.maxHealth;
-
-            waveText.text = "Wave: " + waveCount + " Enemies Left: " + enemiesSpawned + "/" + enemyCap;
-
-            if(player.currentWeapon)
+            
+            if (intermission == true)
+            {
+                waveText.text = "Intermission: " + intermissionTime;
+                
+            }
+            else if (wavesActive == true)
+            {
+                waveText.text = "Wave: " + waveCount + " Enemies Left: " + enemiesSpawned + "/" + enemyCap;
+            } 
+            
+            if (player.currentWeapon)
             {
                 if (player.akimboWeapon)
                 {
@@ -78,13 +91,23 @@ public class GameManager : MonoBehaviour
                 magText.text = "";
                 akimboText.text = "";
             }
-
-
-
-            if(enemiesAlive == 0)
+            
+            if(waveCount % 5 == 0)
             {
+                wavesActive = false;
+            }
+
+            if (intermissionTime >= 0 && incTimer)
+            {
+                StartCoroutine("intermissionTimer");
+            }
+
+            if(enemiesAlive == 0 && wavesActive == true && !intermission && enemiesSpawned == enemyCap)
+            {
+                intermissionTime = waveCountdown;
                 StartCoroutine("resetWave");
             }
+            
         }
             
     }
@@ -132,11 +155,25 @@ public class GameManager : MonoBehaviour
 
     IEnumerator resetWave()
     {
+        intermission = true;
+
         yield return new WaitForSeconds(waveCountdown);
 
+        intermission = false;
         enemiesSpawned = 0;
         enemyCap += 5;
+        waveCount++;
 
         StopCoroutine("resetWave");
+    }
+
+    IEnumerator intermissionTimer()
+    {
+        incTimer = false;
+
+        yield return new WaitForSeconds(1);
+        
+        intermissionTime--;
+        incTimer = true;
     }
 }

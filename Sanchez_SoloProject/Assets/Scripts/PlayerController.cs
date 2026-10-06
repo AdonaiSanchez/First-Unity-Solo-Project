@@ -103,7 +103,7 @@ public class PlayerController : MonoBehaviour
 
         if (Physics.Raycast(interactRay, out interactHit, interactDistance))
         {
-            if (interactHit.collider.tag == "Weapon" || interactHit.collider.tag == "Ammo" || interactHit.collider.tag == "Teleporter")
+            if (interactHit.collider.tag == "Weapon" || interactHit.collider.tag == "Ammo" || interactHit.collider.tag == "Teleporter" || interactHit.collider.tag == "StartWave")
             {
                 pickupObj = interactHit.collider.gameObject;
             }
@@ -238,6 +238,11 @@ public class PlayerController : MonoBehaviour
                 if(pickupObj.tag == "Teleporter")
                 {
                     pickupObj.GetComponent<Teleporter>().Teleport();
+                }
+
+                if (pickupObj.tag == "StartWave")
+                {
+                    pickupObj.GetComponent<PaperSynthisizer>().startWave();
                 }
 
                 pickupObj = null;
