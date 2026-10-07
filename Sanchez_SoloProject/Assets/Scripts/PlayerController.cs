@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -22,7 +23,6 @@ public class PlayerController : MonoBehaviour
     public float jumpDetectDistance = 1f;
     public float interactDistance = 5f;
     public float fireDmgTickrate = 0.1f;
-    public float damageMult = 1f;
     
     public bool canReloadAkimbo = false;
     public bool isAttacking;
@@ -77,7 +77,14 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(health <= 0)
+        if (armor > 0)
+        {
+            armored = true;
+        }
+        else
+            armored = false;
+
+        if (health <= 0)
         {
             if (currentWeapon && akimboWeapon)
             {
@@ -150,8 +157,17 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Projectile")
         {
-            health -= collision.gameObject.GetComponent<BulletDmg>().damage;
-            Destroy(collision.gameObject);
+            if (armored)
+            {
+                armor -= (int)((float)collision.gameObject.GetComponent<BulletDmg>().damage * (1f - collision.gameObject.GetComponent<BulletDmg>().armorPen)) + (float)collision.gameObject.GetComponent<BulletDmg>().damage;
+                health -= (int)((float)collision.gameObject.GetComponent<BulletDmg>().damage * collision.gameObject.GetComponent<BulletDmg>().armorPen);
+            }
+            else
+            {
+                health -= collision.gameObject.GetComponent<BulletDmg>().damage;
+            }
+
+                Destroy(collision.gameObject);
         }
     }
 

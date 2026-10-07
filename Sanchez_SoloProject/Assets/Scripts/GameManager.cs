@@ -3,13 +3,13 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System.Collections;
-using UnityEngine.InputSystem.Android;
 
 public class GameManager : MonoBehaviour
 {
     public PlayerController player;
 
     public Image healthBar;
+    public Image armorBar;
 
     public TextMeshProUGUI ammoText;
     public TextMeshProUGUI magText;
@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
             pauseMenu.SetActive(false);
 
             healthBar = GameObject.Find("Health").GetComponent<Image>();
+            armorBar = GameObject.Find("Armor").GetComponent<Image>();
 
             ammoText = GameObject.Find("AmmoCounter").GetComponent<TextMeshProUGUI>();
             magText = GameObject.Find("MagCounter").GetComponent<TextMeshProUGUI>();
@@ -62,7 +63,8 @@ public class GameManager : MonoBehaviour
         if (SceneManager.GetActiveScene().buildIndex != 0)
         {
             healthBar.fillAmount = (float)player.health / (float)player.maxHealth;
-            
+            armorBar.fillAmount = (float)player.armor / (float)player.maxArmor;
+
             if (intermission == true)
             {
                 waveText.text = "Intermission: " + intermissionTime;
@@ -94,7 +96,11 @@ public class GameManager : MonoBehaviour
             
             if(waveCount % 5 == 0)
             {
-                wavesActive = false;
+                waveCountdown = 15f;
+            }
+            else
+            {
+                waveCountdown = 5f;
             }
 
             if (intermissionTime >= 0 && incTimer)

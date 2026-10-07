@@ -18,6 +18,8 @@ public class BasicEnemy : MonoBehaviour
     public float attackSpeed = 1f;
     public float lungeRange = 5f;
     public float lungeCool = 2f;
+    public float attackPen;
+    public float speed;
 
     public int attackDmg = 20;
     public int health = 50;
@@ -35,6 +37,8 @@ public class BasicEnemy : MonoBehaviour
         warning = transform.GetChild(0).gameObject;
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+
+        agent.speed = speed;
     }
 
     // Update is called once per frame
@@ -79,7 +83,16 @@ public class BasicEnemy : MonoBehaviour
     {
         if (canAttack)
         {
-            player.health -= attackDmg;
+            if (player.armored)
+            {
+                player.armor -= (int)((float)attackDmg * (1f - attackPen)) + attackDmg;
+                player.health -= (int)((float)attackDmg * attackPen);
+            }
+            else
+            {
+                player.health -= attackDmg;
+            }
+                
         }
     }
 

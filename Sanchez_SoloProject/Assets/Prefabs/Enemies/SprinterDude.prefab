@@ -468,12 +468,15 @@ MonoBehaviour:
   attackSpeed: 0.05
   lungeRange: 5
   lungeCool: 2
+  attackPen: 0.05
+  speed: 3.5
   attackDmg: 25
   health: 100
   maxHealth: 100
   agent: {fileID: 0}
   player: {fileID: 0}
   warning: {fileID: 0}
+  gameManager: {fileID: 0}
 --- !u!1 &6057220038475172573
 GameObject:
   m_ObjectHideFlags: 0

@@ -626,6 +626,8 @@ MonoBehaviour:
   projectile: {fileID: 3999810311166122512, guid: eaf91ed1726e29b44bddbf844d2ff6e8, type: 3}
   firepoint: {fileID: 0}
   firingDirection: {fileID: 0}
+  grounded: 0
+  equipped: 0
   canFire: 1
   holdToAttack: 0
   reloading: 0
@@ -640,7 +642,7 @@ MonoBehaviour:
   projVelocity: 5000
   reloadCooldown: 1.5
   rof: 0.04
-  burstCool: 0.2
+  burstCool: 0.1
   burstAmt: 2
   fireModes: 0
   currentFireMode: 0
@@ -674,7 +676,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!1 &3574241124296135631
 GameObject:

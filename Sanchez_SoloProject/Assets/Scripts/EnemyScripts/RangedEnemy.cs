@@ -12,6 +12,7 @@ public class RangedEnemy : BasicEnemy
 
     public float projVelocity;
     public float projLifespan;
+    public float bulletPen;
 
     Ray friendlyCheck;
     RaycastHit friendlyHit;
@@ -83,6 +84,7 @@ public class RangedEnemy : BasicEnemy
         {
             GameObject p = Instantiate(projectile, firepoint.position, gameObject.transform.rotation);
             p.GetComponent<BulletDmg>().damage = attackDmg;
+            p.GetComponent<BulletDmg>().armorPen = bulletPen;
             p.GetComponent<Rigidbody>().AddForce(gameObject.transform.forward * projVelocity);
             Destroy(p, projLifespan);
         }

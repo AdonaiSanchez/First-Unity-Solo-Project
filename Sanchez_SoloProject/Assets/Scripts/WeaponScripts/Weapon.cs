@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Animations;
 using UnityEngine.Rendering;
 
 public class WeaponScript : MonoBehaviour
@@ -11,7 +12,11 @@ public class WeaponScript : MonoBehaviour
     public Transform firepoint;
     public Camera firingDirection;
 
+    public Ray hoverRay;
+
     [Header("Meta Attributes")]
+    public bool grounded;
+    public bool equipped = false;
     public bool canFire = true;
     public bool holdToAttack = true;
     public bool reloading = false;
@@ -45,15 +50,33 @@ public class WeaponScript : MonoBehaviour
     {
         firepoint = transform.GetChild(0);
         firingDirection = Camera.main;
+        hoverRay = new Ray();
     }
 
-    //OnCollisionStay
+    private void Update()
+    {
+        hoverRay.origin = transform.position;
+        hoverRay.direction = -transform.up;
+
+        grounded = Physics.Raycast(hoverRay, 1);
+
+        if (grounded || equipped || isAkimbo)
+        {
+            GetComponent<Rigidbody>().isKinematic = true;
+        }
+        else
+        {
+            GetComponent<Rigidbody>().isKinematic = false;
+        }
+    }
 
     public void equip(PlayerController p)
     {
         player = p;
 
         player.currentWeapon = this;
+
+        equipped = true;
 
         transform.SetPositionAndRotation(player.weaponSlot.position, player.weaponSlot.rotation);
         transform.SetParent(player.weaponSlot);
@@ -75,6 +98,7 @@ public class WeaponScript : MonoBehaviour
     {
         if(!isAkimbo)
         {
+            equipped = false;
             player.currentWeapon = null;
         }
         else

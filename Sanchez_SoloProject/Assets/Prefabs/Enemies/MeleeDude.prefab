@@ -457,19 +457,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61ca935b873b640478dadedb33912443, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MeleeEnemy
+  canLunge: 0
   isFollowing: 0
   canAttack: 0
   attacking: 0
+  lunging: 0
   attackCooldown: 1
   detectionRange: 25
   attackRange: 2.5
-  attackSpeed: 0.5
+  attackSpeed: 0.3
+  lungeRange: 5
+  lungeCool: 2
+  attackPen: 0.25
+  speed: 5.5
   attackDmg: 20
   health: 125
   maxHealth: 125
   agent: {fileID: 0}
   player: {fileID: 0}
   warning: {fileID: 0}
+  gameManager: {fileID: 0}
 --- !u!1 &6057220038475172573
 GameObject:
   m_ObjectHideFlags: 0

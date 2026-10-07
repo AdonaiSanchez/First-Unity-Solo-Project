@@ -10,7 +10,10 @@ public class Spawner : MonoBehaviour
 
     public int waveLock;
 
-    public float spawnCool = 1f;
+    public float spawnCoolMax = 5f;
+    public float spawnCoolMin = 1.5f;
+
+    public float spawnCool = Random.Range(5f, 1.5f);
 
     public bool singleSpawn = false;
     public bool spawnerBlocked;
@@ -55,6 +58,7 @@ public class Spawner : MonoBehaviour
     IEnumerator spawnCooldown()
     {
         canSpawn = false;
+        spawnCool = Random.Range(15f, 1.5f);
 
         yield return new WaitForSeconds(spawnCool);
 
