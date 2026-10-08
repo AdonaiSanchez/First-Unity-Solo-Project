@@ -12,10 +12,7 @@ public class WeaponScript : MonoBehaviour
     public Transform firepoint;
     public Camera firingDirection;
 
-    public Ray hoverRay;
-
     [Header("Meta Attributes")]
-    public bool grounded;
     public bool equipped = false;
     public bool canFire = true;
     public bool holdToAttack = true;
@@ -26,6 +23,7 @@ public class WeaponScript : MonoBehaviour
     public bool bursting = false;
     public int weaponID;
     public string weaponName;
+    public string firemode;
 
     [Header("Weapon Stats")]
     public int weaponDmg;
@@ -35,8 +33,6 @@ public class WeaponScript : MonoBehaviour
     public float rof;
     public float burstCool;
     public int burstAmt;
-    public int fireModes;
-    public int currentFireMode;
     public int mag;
     public int magSize;
 
@@ -50,24 +46,6 @@ public class WeaponScript : MonoBehaviour
     {
         firepoint = transform.GetChild(0);
         firingDirection = Camera.main;
-        hoverRay = new Ray();
-    }
-
-    private void Update()
-    {
-        hoverRay.origin = transform.position;
-        hoverRay.direction = -transform.up;
-
-        grounded = Physics.Raycast(hoverRay, 1);
-
-        if (grounded || equipped || isAkimbo)
-        {
-            GetComponent<Rigidbody>().isKinematic = true;
-        }
-        else
-        {
-            GetComponent<Rigidbody>().isKinematic = false;
-        }
     }
 
     public void equip(PlayerController p)
@@ -77,6 +55,8 @@ public class WeaponScript : MonoBehaviour
         player.currentWeapon = this;
 
         equipped = true;
+        GetComponent<ItemHover>().enabled = false;
+        GetComponent<Rigidbody>().isKinematic = true;
 
         transform.SetPositionAndRotation(player.weaponSlot.position, player.weaponSlot.rotation);
         transform.SetParent(player.weaponSlot);
@@ -87,6 +67,8 @@ public class WeaponScript : MonoBehaviour
         player = p;
 
         isAkimbo = true;
+        GetComponent<ItemHover>().enabled = false;
+        GetComponent<Rigidbody>().isKinematic = true;
         player.akimboWeapon = this;
         player.akimbo = true;
 
@@ -99,11 +81,13 @@ public class WeaponScript : MonoBehaviour
         if(!isAkimbo)
         {
             equipped = false;
+            GetComponent<ItemHover>().enabled = true;
             player.currentWeapon = null;
         }
         else
         {
             isAkimbo = false;
+            GetComponent<ItemHover>().enabled = true;
             player.akimboWeapon = null;
             player.akimbo = false;
         }

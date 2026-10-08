@@ -14,6 +14,7 @@ TagManager:
   - Teleporter
   - Spawner
   - StartWave
+  - Armor
   layers:
   - Default
   - TransparentFX

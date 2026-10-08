@@ -13,7 +13,8 @@ public class GameManager : MonoBehaviour
 
     public TextMeshProUGUI ammoText;
     public TextMeshProUGUI magText;
-    public TextMeshProUGUI akimboText;
+    public TextMeshProUGUI akimboMagText;
+    public TextMeshProUGUI weaponText;
 
     public TextMeshProUGUI waveText;
 
@@ -50,7 +51,8 @@ public class GameManager : MonoBehaviour
 
             ammoText = GameObject.Find("AmmoCounter").GetComponent<TextMeshProUGUI>();
             magText = GameObject.Find("MagCounter").GetComponent<TextMeshProUGUI>();
-            akimboText = GameObject.Find("AkimboCounter").GetComponent<TextMeshProUGUI>();
+            akimboMagText = GameObject.Find("AkimboCounter").GetComponent<TextMeshProUGUI>();
+            weaponText = GameObject.Find("WeaponUsing").GetComponent<TextMeshProUGUI>();
 
             waveText = GameObject.Find("WaveCounter").GetComponent<TextMeshProUGUI>();
         }
@@ -72,36 +74,31 @@ public class GameManager : MonoBehaviour
             }
             else if (wavesActive == true)
             {
-                waveText.text = "Wave: " + waveCount + " Enemies Left: " + enemiesSpawned + "/" + enemyCap;
-            } 
+                waveText.text = "Wave: " + waveCount + " | Enemies Left: " + enemiesSpawned + "/" + enemyCap;
+            }
             
             if (player.currentWeapon)
             {
                 if (player.akimboWeapon)
                 {
-                    akimboText.text = "Mag: " + player.akimboWeapon.mag + "/" + player.akimboWeapon.magSize;
+                    akimboMagText.text = "Mag: " + player.akimboWeapon.mag + "/" + player.akimboWeapon.magSize;
                 }
                 else
-                    akimboText.text = "";
+                    akimboMagText.text = "";
 
                 ammoText.text = player.currentWeapon.ammo + "/" + player.currentWeapon.maxAmmo + " :Ammo";
                 magText.text = player.currentWeapon.mag + "/" + player.currentWeapon.magSize + " :Mag";
+                weaponText.text = player.currentWeapon.firemode + "  |  " + player.currentWeapon.weaponName;
             }
             else
             {
                 ammoText.text = "";
                 magText.text = "";
-                akimboText.text = "";
+                akimboMagText.text = "";
+                weaponText.text = "";
             }
             
-            if(waveCount % 5 == 0)
-            {
-                waveCountdown = 15f;
-            }
-            else
-            {
-                waveCountdown = 5f;
-            }
+            
 
             if (intermissionTime >= 0 && incTimer)
             {
@@ -169,7 +166,13 @@ public class GameManager : MonoBehaviour
         enemiesSpawned = 0;
         enemyCap += 5;
         waveCount++;
-
+        
+        if (waveCount % 5 == 0)
+        {
+            wavesActive = false;
+            waveText.text = "";
+        }
+        
         StopCoroutine("resetWave");
     }
 

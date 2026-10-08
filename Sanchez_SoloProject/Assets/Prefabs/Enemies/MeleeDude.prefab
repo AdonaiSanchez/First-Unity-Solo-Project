@@ -470,6 +470,7 @@ MonoBehaviour:
   lungeCool: 2
   attackPen: 0.25
   speed: 5.5
+  dropChance: 10
   attackDmg: 20
   health: 125
   maxHealth: 125
@@ -477,6 +478,7 @@ MonoBehaviour:
   player: {fileID: 0}
   warning: {fileID: 0}
   gameManager: {fileID: 0}
+  drop: {fileID: 403506641047915700, guid: ae92234c2decbdb45b665c3e5908dc9d, type: 3}
 --- !u!1 &6057220038475172573
 GameObject:
   m_ObjectHideFlags: 0

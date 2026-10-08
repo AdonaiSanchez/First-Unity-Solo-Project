@@ -2,6 +2,7 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -86,7 +87,8 @@ public class PlayerController : MonoBehaviour
 
         if (health <= 0)
         {
-            if (currentWeapon && akimboWeapon)
+            SceneManager.LoadScene(1);
+            /*if (currentWeapon && akimboWeapon)
             {
                 akimboWeapon.unequip();
                 currentWeapon.unequip();
@@ -97,7 +99,7 @@ public class PlayerController : MonoBehaviour
             }
 
             transform.SetPositionAndRotation(GameObject.Find("Spawnpoint").transform.position, GameObject.Find("Spawnpoint").transform.rotation);
-            health = maxHealth;
+            health = maxHealth;*/
         }
 
         jumpRay.origin = transform.position;
@@ -110,7 +112,7 @@ public class PlayerController : MonoBehaviour
 
         if (Physics.Raycast(interactRay, out interactHit, interactDistance))
         {
-            if (interactHit.collider.tag == "Weapon" || interactHit.collider.tag == "Ammo" || interactHit.collider.tag == "Teleporter" || interactHit.collider.tag == "StartWave")
+            if (interactHit.collider.tag == "Armor" || interactHit.collider.tag == "Weapon" || interactHit.collider.tag == "Ammo" || interactHit.collider.tag == "Teleporter" || interactHit.collider.tag == "StartWave")
             {
                 pickupObj = interactHit.collider.gameObject;
             }
@@ -159,7 +161,7 @@ public class PlayerController : MonoBehaviour
         {
             if (armored)
             {
-                armor -= (int)((float)collision.gameObject.GetComponent<BulletDmg>().damage * (1f - collision.gameObject.GetComponent<BulletDmg>().armorPen)) + (float)collision.gameObject.GetComponent<BulletDmg>().damage;
+                armor -= (int)((float)collision.gameObject.GetComponent<BulletDmg>().damage * (1f - collision.gameObject.GetComponent<BulletDmg>().armorPen)) + collision.gameObject.GetComponent<BulletDmg>().damage;
                 health -= (int)((float)collision.gameObject.GetComponent<BulletDmg>().damage * collision.gameObject.GetComponent<BulletDmg>().armorPen);
             }
             else
@@ -251,7 +253,19 @@ public class PlayerController : MonoBehaviour
                     Destroy(pickupObj);
                 }
 
-                if(pickupObj.tag == "Teleporter")
+                if (pickupObj.tag == "Armor" && armor != maxArmor)
+                {
+                    int armorMissing = armor - maxArmor;
+
+                    if (armorMissing <= 25)
+                        armor = maxArmor;
+                    else
+                        armor += 25;
+
+                    Destroy(pickupObj);
+                }
+
+                if (pickupObj.tag == "Teleporter")
                 {
                     pickupObj.GetComponent<Teleporter>().Teleport();
                 }

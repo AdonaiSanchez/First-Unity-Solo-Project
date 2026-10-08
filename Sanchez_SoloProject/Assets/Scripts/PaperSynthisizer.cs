@@ -19,7 +19,10 @@ public class PaperSynthisizer : MonoBehaviour
 
     public void startWave()
     {
-        gameManager.GetComponent<GameManager>().wavesActive = true;
-        gameManager.GetComponent<GameManager>().waveCount++;
+        if (!gameManager.GetComponent<GameManager>().wavesActive)
+        {
+            gameManager.GetComponent<GameManager>().wavesActive = true;
+            gameManager.GetComponent<GameManager>().waveCount++;
+        }
     }
 }

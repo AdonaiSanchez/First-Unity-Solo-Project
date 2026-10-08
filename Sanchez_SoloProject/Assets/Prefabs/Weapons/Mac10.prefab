@@ -102,6 +102,7 @@ GameObject:
   - component: {fileID: 3147180320074420854}
   - component: {fileID: 2720193070119573178}
   - component: {fileID: -1592644694196814608}
+  - component: {fileID: -3615453859686914123}
   m_Layer: 0
   m_Name: Mac10
   m_TagString: Weapon
@@ -147,6 +148,7 @@ MonoBehaviour:
   projectile: {fileID: 3999810311166122512, guid: eaf91ed1726e29b44bddbf844d2ff6e8, type: 3}
   firepoint: {fileID: 0}
   firingDirection: {fileID: 0}
+  equipped: 0
   canFire: 1
   holdToAttack: 1
   reloading: 0
@@ -156,6 +158,7 @@ MonoBehaviour:
   bursting: 0
   weaponID: 2
   weaponName: Mac-10
+  firemode: Full
   weaponDmg: 5
   projLifespan: 0.4
   projVelocity: 3500
@@ -163,12 +166,10 @@ MonoBehaviour:
   rof: 0.05
   burstCool: 0
   burstAmt: 0
-  fireModes: 0
-  currentFireMode: 0
   mag: 40
   magSize: 40
-  ammo: 2000
-  maxAmmo: 4000
+  ammo: 2500
+  maxAmmo: 25000
   ammoRefill: 80
 --- !u!65 &2720193070119573178
 BoxCollider:
@@ -218,6 +219,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!114 &-3615453859686914123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2308248830529452602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a2564190dbb7dd4db6274a999cf2b1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemHover
+  grounded: 0
 --- !u!1 &2349504373509144900
 GameObject:
   m_ObjectHideFlags: 0

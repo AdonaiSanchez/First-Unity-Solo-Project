@@ -491,6 +491,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7327434443899418084}
   - component: {fileID: 7884297001267318285}
+  - component: {fileID: 9193425317669526273}
   - component: {fileID: 9092009873312209079}
   - component: {fileID: -5404372663546739163}
   m_Layer: 0
@@ -538,6 +539,7 @@ MonoBehaviour:
   projectile: {fileID: 3999810311166122512, guid: eaf91ed1726e29b44bddbf844d2ff6e8, type: 3}
   firepoint: {fileID: 0}
   firingDirection: {fileID: 0}
+  equipped: 0
   canFire: 1
   holdToAttack: 0
   reloading: 0
@@ -547,6 +549,7 @@ MonoBehaviour:
   bursting: 0
   weaponID: 3
   weaponName: 93R
+  firemode: Burst
   weaponDmg: 8
   projLifespan: 0.5
   projVelocity: 3000
@@ -554,13 +557,24 @@ MonoBehaviour:
   rof: 0.03
   burstCool: 0.1
   burstAmt: 3
-  fireModes: 0
-  currentFireMode: 0
   mag: 24
   magSize: 24
-  ammo: 2000
-  maxAmmo: 3000
-  ammoRefill: 24
+  ammo: 1250
+  maxAmmo: 12500
+  ammoRefill: 48
+--- !u!114 &9193425317669526273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5910120406363014998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a2564190dbb7dd4db6274a999cf2b1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemHover
+  grounded: 0
 --- !u!65 &9092009873312209079
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -20,6 +20,7 @@ public class BasicEnemy : MonoBehaviour
     public float lungeCool = 2f;
     public float attackPen;
     public float speed;
+    public float dropChance;
 
     public int attackDmg = 20;
     public int health = 50;
@@ -29,6 +30,7 @@ public class BasicEnemy : MonoBehaviour
     public PlayerController player;
     public GameObject warning;
     public GameObject gameManager;
+    public GameObject drop;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -67,6 +69,11 @@ public class BasicEnemy : MonoBehaviour
             Destroy(gameObject);
 
             gameManager.GetComponent<GameManager>().enemiesAlive--;
+
+            if (drop)
+            {
+                DropItem();
+            }
         }
     }
 
@@ -93,6 +100,16 @@ public class BasicEnemy : MonoBehaviour
                 player.health -= attackDmg;
             }
                 
+        }
+    }
+
+    public void DropItem()
+    {
+        float rollDrop = Random.Range(1f, 100f);
+
+        if(rollDrop <= dropChance)
+        {
+            GameObject p = Instantiate(drop, transform.position, transform.rotation);
         }
     }
 

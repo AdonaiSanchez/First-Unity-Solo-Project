@@ -552,6 +552,7 @@ GameObject:
   - component: {fileID: 6452110966950142605}
   - component: {fileID: 5227126743762164146}
   - component: {fileID: -5267750273184076691}
+  - component: {fileID: -1533187314052134361}
   m_Layer: 0
   m_Name: AN-94
   m_TagString: Weapon
@@ -626,7 +627,6 @@ MonoBehaviour:
   projectile: {fileID: 3999810311166122512, guid: eaf91ed1726e29b44bddbf844d2ff6e8, type: 3}
   firepoint: {fileID: 0}
   firingDirection: {fileID: 0}
-  grounded: 0
   equipped: 0
   canFire: 1
   holdToAttack: 0
@@ -637,6 +637,7 @@ MonoBehaviour:
   bursting: 0
   weaponID: 4
   weaponName: AN-94
+  firemode: Burst
   weaponDmg: 15
   projLifespan: 0.75
   projVelocity: 5000
@@ -644,13 +645,11 @@ MonoBehaviour:
   rof: 0.04
   burstCool: 0.1
   burstAmt: 2
-  fireModes: 0
-  currentFireMode: 0
   mag: 30
   magSize: 30
   ammo: 1500
-  maxAmmo: 3000
-  ammoRefill: 30
+  maxAmmo: 15000
+  ammoRefill: 60
 --- !u!54 &-5267750273184076691
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -678,6 +677,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!114 &-1533187314052134361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2981941175377117632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a2564190dbb7dd4db6274a999cf2b1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemHover
+  grounded: 0
 --- !u!1 &3574241124296135631
 GameObject:
   m_ObjectHideFlags: 0
