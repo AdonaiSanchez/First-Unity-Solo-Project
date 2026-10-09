@@ -81,6 +81,7 @@ public class WeaponScript : MonoBehaviour
         if(!isAkimbo)
         {
             equipped = false;
+            player.isAttacking = false;
             GetComponent<ItemHover>().enabled = true;
             player.currentWeapon = null;
         }
@@ -88,6 +89,7 @@ public class WeaponScript : MonoBehaviour
         {
             isAkimbo = false;
             GetComponent<ItemHover>().enabled = true;
+            player.akimboAttacking = false;
             player.akimboWeapon = null;
             player.akimbo = false;
         }

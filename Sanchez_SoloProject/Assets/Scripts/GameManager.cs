@@ -81,13 +81,20 @@ public class GameManager : MonoBehaviour
             {
                 if (player.akimboWeapon)
                 {
-                    akimboMagText.text = "Mag: " + player.akimboWeapon.mag + "/" + player.akimboWeapon.magSize;
+                    if (player.akimboWeapon.reloading)
+                        akimboMagText.text = "Reloading...";
+                    else
+                        akimboMagText.text = "Mag: " + player.akimboWeapon.mag + "/" + player.akimboWeapon.magSize;
                 }
                 else
                     akimboMagText.text = "";
 
+                if (player.currentWeapon.reloading)
+                    magText.text = "Reloading...";
+                else
+                    magText.text = player.currentWeapon.mag + "/" + player.currentWeapon.magSize + " :Mag";
+
                 ammoText.text = player.currentWeapon.ammo + "/" + player.currentWeapon.maxAmmo + " :Ammo";
-                magText.text = player.currentWeapon.mag + "/" + player.currentWeapon.magSize + " :Mag";
                 weaponText.text = player.currentWeapon.firemode + "  |  " + player.currentWeapon.weaponName;
             }
             else

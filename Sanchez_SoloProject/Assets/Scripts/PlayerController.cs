@@ -53,10 +53,12 @@ public class PlayerController : MonoBehaviour
     PlayerInput input;
     Rigidbody rb;
     public GameObject pickupObj;
+    public GameObject gameManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        gameManager = GameObject.Find("GameManager");
         input = GetComponent<PlayerInput>();
         rb = GetComponent<Rigidbody>();
         playerCam = Camera.main;
@@ -130,6 +132,9 @@ public class PlayerController : MonoBehaviour
         {
             if((akimboWeapon.holdToAttack || akimboWeapon.burst) && akimboAttacking)
                 akimboWeapon.fire();
+
+            if (akimboWeapon.mag == 0 && !canReloadAkimbo)
+                akimboWeapon.unequip();
         }
 
 
@@ -161,7 +166,13 @@ public class PlayerController : MonoBehaviour
         {
             if (armored)
             {
-                armor -= (int)((float)collision.gameObject.GetComponent<BulletDmg>().damage * (1f - collision.gameObject.GetComponent<BulletDmg>().armorPen)) + collision.gameObject.GetComponent<BulletDmg>().damage;
+                int armorDmg = (int)((float)collision.gameObject.GetComponent<BulletDmg>().damage * (1f - collision.gameObject.GetComponent<BulletDmg>().armorPen)) + collision.gameObject.GetComponent<BulletDmg>().damage;
+
+                if (armor >= armorDmg)
+                    armor -= armorDmg;
+                else
+                    armor = 0;
+
                 health -= (int)((float)collision.gameObject.GetComponent<BulletDmg>().damage * collision.gameObject.GetComponent<BulletDmg>().armorPen);
             }
             else
@@ -255,7 +266,8 @@ public class PlayerController : MonoBehaviour
 
                 if (pickupObj.tag == "Armor" && armor != maxArmor)
                 {
-                    int armorMissing = armor - maxArmor;
+                    int armorMissing = maxArmor - armor;
+                    Debug.Log(armorMissing);
 
                     if (armorMissing <= 25)
                         armor = maxArmor;
@@ -265,7 +277,7 @@ public class PlayerController : MonoBehaviour
                     Destroy(pickupObj);
                 }
 
-                if (pickupObj.tag == "Teleporter")
+                if (pickupObj.tag == "Teleporter" && !gameManager.GetComponent<GameManager>().wavesActive)
                 {
                     pickupObj.GetComponent<Teleporter>().Teleport();
                 }
@@ -305,7 +317,7 @@ public class PlayerController : MonoBehaviour
 
     public void Attack(InputAction.CallbackContext context)
     {
-        if(currentWeapon)
+        if(currentWeapon && !gameManager.GetComponent<GameManager>().paused)
         {
             if (currentWeapon.holdToAttack)
             {

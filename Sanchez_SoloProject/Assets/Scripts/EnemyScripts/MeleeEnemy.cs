@@ -92,7 +92,13 @@ public class BasicEnemy : MonoBehaviour
         {
             if (player.armored)
             {
-                player.armor -= (int)((float)attackDmg * (1f - attackPen)) + attackDmg;
+                int armorDmg = (int)((float)attackDmg * (1f - attackPen)) + attackDmg;
+
+                if (player.armor >= armorDmg)
+                    player.armor -= armorDmg;
+                else
+                    player.armor = 0;
+
                 player.health -= (int)((float)attackDmg * attackPen);
             }
             else

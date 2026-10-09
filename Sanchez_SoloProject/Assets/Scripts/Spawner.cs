@@ -35,7 +35,7 @@ public class Spawner : MonoBehaviour
             gameManager.GetComponent<GameManager>().enemiesAlive++;
             gameManager.GetComponent<GameManager>().enemiesSpawned++;
 
-            StartCoroutine("spawnCooldown");
+            StartCoroutine("SpawnCooldown");
         }
     }
 
@@ -55,7 +55,7 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    IEnumerator spawnCooldown()
+    IEnumerator SpawnCooldown()
     {
         canSpawn = false;
         spawnCool = Random.Range(15f, 1.5f);

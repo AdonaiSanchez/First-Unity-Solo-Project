@@ -275,7 +275,7 @@ MonoBehaviour:
   weaponID: 0
   weaponName: M1911
   firemode: Semi
-  weaponDmg: 20
+  weaponDmg: 30
   projLifespan: 0.5
   projVelocity: 2500
   reloadCooldown: 1

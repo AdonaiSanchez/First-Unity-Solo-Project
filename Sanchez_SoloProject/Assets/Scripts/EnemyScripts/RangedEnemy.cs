@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -9,10 +10,11 @@ public class RangedEnemy : BasicEnemy
 
     public Transform firepoint;
     public GameObject projectile;
+    public GameObject lookingAt;
 
     public float projVelocity;
     public float projLifespan;
-    public float bulletPen;
+    public float bulletPen; 
 
     Ray friendlyCheck;
     RaycastHit friendlyHit;
@@ -26,6 +28,8 @@ public class RangedEnemy : BasicEnemy
         firepoint = transform.GetChild(1);
 
         friendlyCheck = new Ray();
+
+        agent.speed = speed;
     }
 
     void Update()
@@ -35,9 +39,11 @@ public class RangedEnemy : BasicEnemy
         friendlyCheck.origin = firepoint.transform.position;
         friendlyCheck.direction = firepoint.transform.forward;
 
+        
+
         if (Physics.Raycast(friendlyCheck, out friendlyHit, projVelocity*projLifespan))
         {
-            if (friendlyHit.collider.tag == "Enemy")
+            if (friendlyHit.collider.gameObject != GameObject.Find("Player"))
             {
                 friendlyBlocking = true;
             }
@@ -57,7 +63,7 @@ public class RangedEnemy : BasicEnemy
             agent.destination = player.transform.position;
         }
 
-        if (canAttack)
+        if (targetDistance <= attackRange)
         {
             transform.LookAt(player.transform.position);
         }
