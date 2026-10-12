@@ -369,7 +369,7 @@ MonoBehaviour:
   weaponDmg: 12
   projLifespan: 0.5
   projVelocity: 2750
-  reloadCooldown: 0.5
+  reloadCooldown: 0.75
   rof: 0.01
   burstCool: 0
   burstAmt: 0

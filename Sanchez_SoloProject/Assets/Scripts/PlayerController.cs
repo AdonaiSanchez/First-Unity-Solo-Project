@@ -160,6 +160,35 @@ public class PlayerController : MonoBehaviour
         rb.linearVelocity = (tempMove.x * transform.right) + (tempMove.y * transform.up) + (tempMove.z * transform.forward);
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Ammo" && currentWeapon)
+        {
+            int refillAmt = currentWeapon.maxAmmo - currentWeapon.ammoRefill;
+
+            if (refillAmt >= currentWeapon.maxAmmo)
+            {
+                currentWeapon.ammo = currentWeapon.maxAmmo;
+            }
+            else
+                currentWeapon.ammo += currentWeapon.ammoRefill;
+
+            Destroy(other.gameObject);
+        }
+
+        if (other.gameObject.tag == "Armor" && armor != maxArmor)
+        {
+            int armorMissing = maxArmor - armor;
+
+            if (armorMissing <= 25)
+                armor = maxArmor;
+            else
+                armor += 25;
+
+            Destroy(other.gameObject);
+        }
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Projectile")
@@ -267,7 +296,6 @@ public class PlayerController : MonoBehaviour
                 if (pickupObj.tag == "Armor" && armor != maxArmor)
                 {
                     int armorMissing = maxArmor - armor;
-                    Debug.Log(armorMissing);
 
                     if (armorMissing <= 25)
                         armor = maxArmor;

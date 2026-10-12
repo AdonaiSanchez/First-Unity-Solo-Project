@@ -93,7 +93,8 @@ public class WeaponScript : MonoBehaviour
             player.akimboWeapon = null;
             player.akimbo = false;
         }
-            
+
+        bursting = false;
         transform.SetPositionAndRotation(player.transform.position, player.transform.rotation);
         transform.SetParent(null);
 

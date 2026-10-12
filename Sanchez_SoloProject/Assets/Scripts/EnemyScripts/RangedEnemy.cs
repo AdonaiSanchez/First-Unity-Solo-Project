@@ -81,6 +81,11 @@ public class RangedEnemy : BasicEnemy
             Destroy(gameObject);
 
             gameManager.GetComponent<GameManager>().enemiesAlive--;
+
+            if (drop)
+            {
+                DropItem();
+            }
         }
     }
 
