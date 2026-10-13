@@ -662,7 +662,8 @@ MonoBehaviour:
   stationary: 0
   friendlyBlocking: 0
   firepoint: {fileID: 0}
-  projectile: {fileID: 3999810311166122512, guid: eaf91ed1726e29b44bddbf844d2ff6e8, type: 3}
+  projectile: {fileID: 3999810311166122512, guid: 00c3c32a77ae91e47b1b1f79887d69f2, type: 3}
+  lookingAt: {fileID: 0}
   projVelocity: 2500
   projLifespan: 1.5
   bulletPen: 0.1

@@ -21,6 +21,7 @@ public class WeaponScript : MonoBehaviour
     public bool isAkimbo = false;
     public bool burst = false;
     public bool bursting = false;
+    public bool ads = false;
     public int weaponID;
     public string weaponName;
     public string firemode;

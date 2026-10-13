@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -24,14 +25,19 @@ public class PlayerController : MonoBehaviour
     public float jumpDetectDistance = 1f;
     public float interactDistance = 5f;
     public float fireDmgTickrate = 0.1f;
+    public float regenTickrate = 0.01f;
     
     public bool canReloadAkimbo = false;
     public bool isAttacking;
     public bool akimboAttacking;
     public bool fireDmg = false;
+    public bool canRegen = false;
     public bool akimbo = false;
+    public bool aiming = false;
 
     public bool onGround = true;
+
+    public bool firepointInside;
     
     public bool canSprint = false;
     public bool sprinting = false;
@@ -137,6 +143,10 @@ public class PlayerController : MonoBehaviour
                 akimboWeapon.unequip();
         }
 
+        if (aiming)
+        {
+            playerCam.fieldOfView = 50;
+        }
 
         Vector3 tempMove = rb.linearVelocity;
 
@@ -189,9 +199,32 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "Heal")
+        {
+            if (!canRegen && health < maxHealth)
+            {
+                StartCoroutine("healCooldown");
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Heal")
+        {
+            if (canRegen)
+            {
+                StopCoroutine("fireDmgCooldown");
+                canRegen = false;
+            }
+        }
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Projectile")
+        if (collision.gameObject.tag == "EnemyProjectile")
         {
             if (armored)
             {
@@ -243,19 +276,16 @@ public class PlayerController : MonoBehaviour
 
     public void Sprint(InputAction.CallbackContext context)
     {
-        if (onGround)
+        if (!toggleSprint)
         {
-            if (!toggleSprint)
-            {
-                if (context.ReadValueAsButton())
-                    sprinting = true;
-                else
-                    sprinting = false;
-            }
+            if (context.ReadValueAsButton())
+                sprinting = true;
             else
-                if (context.performed)
-                    sprinting = !sprinting;
+                sprinting = false;
         }
+        else
+            if (context.performed)
+                sprinting = !sprinting;
     }
 
     public void Jump()
@@ -374,6 +404,15 @@ public class PlayerController : MonoBehaviour
             else if (context.ReadValueAsButton() && !akimboWeapon.bursting)
                 akimboWeapon.fire();
         }
+
+        if (currentWeapon.ads)
+        {
+            if (context.ReadValueAsButton())
+                
+            else
+                aiming = false;
+
+        }
     }
 
     public void DropWeapon()
@@ -394,5 +433,21 @@ public class PlayerController : MonoBehaviour
 
         health--;
         fireDmg = false;
+    }
+
+    IEnumerator healCooldown()
+    {
+        canRegen = true;
+
+        yield return new WaitForSeconds(regenTickrate);
+
+        int healthMissing = maxHealth - health;
+
+        if (healthMissing <= (int)(maxHealth * 0.05))
+            health = maxHealth;
+        else
+            health += (int)(maxHealth*0.05);
+
+        canRegen = false;
     }
 }

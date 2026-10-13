@@ -638,7 +638,7 @@ MonoBehaviour:
   weaponID: 4
   weaponName: AN-94
   firemode: Burst
-  weaponDmg: 15
+  weaponDmg: 18
   projLifespan: 0.75
   projVelocity: 5000
   reloadCooldown: 1.5
@@ -879,6 +879,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5050289334588527837}
+  - component: {fileID: 8893919349569214619}
   m_Layer: 0
   m_Name: Firepoint
   m_TagString: Untagged
@@ -895,12 +896,33 @@ Transform:
   m_GameObject: {fileID: 4098760388188276224}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.1742, z: 1.0135}
+  m_LocalPosition: {x: 0, y: 0.1742, z: 1.0147}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8344295636980482191}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &8893919349569214619
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4098760388188276224}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.05
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6532152989505210913
 GameObject:
   m_ObjectHideFlags: 0
