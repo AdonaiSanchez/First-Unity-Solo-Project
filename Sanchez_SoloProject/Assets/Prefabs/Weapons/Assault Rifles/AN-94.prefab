@@ -635,6 +635,7 @@ MonoBehaviour:
   isAkimbo: 0
   burst: 1
   bursting: 0
+  ads: 0
   weaponID: 4
   weaponName: AN-94
   firemode: Burst
@@ -649,7 +650,7 @@ MonoBehaviour:
   magSize: 30
   ammo: 250
   maxAmmo: 15000
-  ammoRefill: 60
+  ammoRefill: 90
 --- !u!54 &-5267750273184076691
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -879,7 +880,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5050289334588527837}
-  - component: {fileID: 8893919349569214619}
   m_Layer: 0
   m_Name: Firepoint
   m_TagString: Untagged
@@ -902,27 +902,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8344295636980482191}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &8893919349569214619
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4098760388188276224}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.05
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6532152989505210913
 GameObject:
   m_ObjectHideFlags: 0

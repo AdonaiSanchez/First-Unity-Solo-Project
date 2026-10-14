@@ -151,6 +151,8 @@ public class GameManager : MonoBehaviour
         }
         else
             SceneManager.LoadScene(levelID);
+
+        Time.timeScale = 1f;
     }
 
     public void LoadNextLevel()

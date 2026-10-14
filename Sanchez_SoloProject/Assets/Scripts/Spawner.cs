@@ -13,7 +13,7 @@ public class Spawner : MonoBehaviour
     public float spawnCoolMax = 5f;
     public float spawnCoolMin = 1.5f;
 
-    public float spawnCool = Random.Range(5f, 1.5f);
+    public float spawnCool;
 
     public bool singleSpawn = false;
     public bool spawnerBlocked;
@@ -24,6 +24,7 @@ public class Spawner : MonoBehaviour
     {
         spawnpoint = GetComponent<Transform>();
         gameManager = GameObject.Find("GameManager");
+        spawnCool = Random.Range(5f, 1.5f);
     }
 
     // Update is called once per frame

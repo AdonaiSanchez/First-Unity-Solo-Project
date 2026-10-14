@@ -590,7 +590,7 @@
                 {
                     "name": "",
                     "id": "5a639854-348f-441d-8d97-83e7266a7d59",
-                    "path": "<Keyboard>/escape",
+                    "path": "<Keyboard>/p",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",

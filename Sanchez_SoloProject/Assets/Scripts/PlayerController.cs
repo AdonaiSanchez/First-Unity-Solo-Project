@@ -143,11 +143,6 @@ public class PlayerController : MonoBehaviour
                 akimboWeapon.unequip();
         }
 
-        if (aiming)
-        {
-            playerCam.fieldOfView = 50;
-        }
-
         Vector3 tempMove = rb.linearVelocity;
 
         tempMove.x = moveInput.x * speed;
@@ -347,8 +342,8 @@ public class PlayerController : MonoBehaviour
 
                 pickupObj = null;
             }
-            else if (currentWeapon)
-                Reload();
+            //else if (currentWeapon)
+                //Reload();
         }
     }
 
@@ -404,25 +399,14 @@ public class PlayerController : MonoBehaviour
             else if (context.ReadValueAsButton() && !akimboWeapon.bursting)
                 akimboWeapon.fire();
         }
-
-        if (currentWeapon.ads)
-        {
-            if (context.ReadValueAsButton())
-                
-            else
-                aiming = false;
-
-        }
     }
 
     public void DropWeapon()
     {
-        if(!akimboWeapon && currentWeapon)
-        {
+        if (!akimbo && currentWeapon)
             currentWeapon.GetComponent<WeaponScript>().unequip();
-        }
-        else if (akimboWeapon)
-            akimboWeapon.GetComponent<WeaponScript>().unequip();
+        //else if (akimbo) ;
+            //akimboWeapon.GetComponent<WeaponScript>().unequip();
     }
 
     IEnumerator fireDmgCooldown()

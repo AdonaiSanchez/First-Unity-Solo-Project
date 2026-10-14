@@ -279,7 +279,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3498382190374535936}
-  - component: {fileID: 8903741573781745363}
   m_Layer: 0
   m_Name: Firepoint
   m_TagString: Untagged
@@ -302,27 +301,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4439347164087993574}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &8903741573781745363
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5749316234578236173}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.05
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8966986994609286574
 GameObject:
   m_ObjectHideFlags: 0
@@ -385,6 +363,7 @@ MonoBehaviour:
   isAkimbo: 0
   burst: 0
   bursting: 0
+  ads: 0
   weaponID: 5
   weaponName: G-17
   firemode: Semi

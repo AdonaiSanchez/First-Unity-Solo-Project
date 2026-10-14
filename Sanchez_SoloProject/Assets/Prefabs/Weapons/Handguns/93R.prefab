@@ -279,7 +279,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8605370179578055541}
-  - component: {fileID: 2358147939461401066}
   m_Layer: 0
   m_Name: Firepoint
   m_TagString: Untagged
@@ -302,27 +301,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7327434443899418084}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &2358147939461401066
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4037840003074024325}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.05
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4095726814386206594
 GameObject:
   m_ObjectHideFlags: 0
@@ -569,6 +547,7 @@ MonoBehaviour:
   isAkimbo: 0
   burst: 1
   bursting: 0
+  ads: 0
   weaponID: 3
   weaponName: 93R
   firemode: Burst
