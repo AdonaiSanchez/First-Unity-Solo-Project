@@ -6,11 +6,13 @@ using UnityEngine.Rendering;
 public class WeaponScript : MonoBehaviour
 {
     PlayerController player;
+    //AudioSource speaker;
 
     [Header("Object References")]
     public GameObject projectile;
     public Transform firepoint;
     public Camera firingDirection;
+    //public AudioClip[] clips;
 
     [Header("Meta Attributes")]
     public bool equipped = false;
@@ -47,6 +49,7 @@ public class WeaponScript : MonoBehaviour
     {
         firepoint = transform.GetChild(0);
         firingDirection = Camera.main;
+        //speaker = GetComponent<AudioSource>();
     }
 
     public void equip(PlayerController p)
@@ -129,6 +132,8 @@ public class WeaponScript : MonoBehaviour
     {
         if(mag > 0 && canFire && !reloading)
         {
+            //speaker.Play();
+
             mag--;
 
             GameObject p = Instantiate(projectile, firepoint.position, firepoint.rotation);

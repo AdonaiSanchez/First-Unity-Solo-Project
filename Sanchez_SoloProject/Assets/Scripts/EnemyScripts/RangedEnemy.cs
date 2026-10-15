@@ -82,7 +82,7 @@ public class RangedEnemy : BasicEnemy
 
             gameManager.GetComponent<GameManager>().enemiesAlive--;
 
-            if (drop)
+            if (drops.Length != 0)
             {
                 DropItem();
             }

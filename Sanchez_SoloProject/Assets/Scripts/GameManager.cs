@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public Image healthBar;
     public Image armorBar;
 
+    public TextMeshProUGUI interactText;
     public TextMeshProUGUI ammoText;
     public TextMeshProUGUI magText;
     public TextMeshProUGUI akimboMagText;
@@ -49,6 +50,7 @@ public class GameManager : MonoBehaviour
             healthBar = GameObject.Find("Health").GetComponent<Image>();
             armorBar = GameObject.Find("Armor").GetComponent<Image>();
 
+            interactText = GameObject.Find("InteractText").GetComponent<TextMeshProUGUI>();
             ammoText = GameObject.Find("AmmoCounter").GetComponent<TextMeshProUGUI>();
             magText = GameObject.Find("MagCounter").GetComponent<TextMeshProUGUI>();
             akimboMagText = GameObject.Find("AkimboCounter").GetComponent<TextMeshProUGUI>();
@@ -74,7 +76,7 @@ public class GameManager : MonoBehaviour
             }
             else if (wavesActive == true)
             {
-                waveText.text = "Wave: " + waveCount + " | Enemies Left: " + enemiesSpawned + "/" + enemyCap;
+                waveText.text = "Wave: " + waveCount + " | Enemies Spawned: " + enemiesSpawned + "/" + enemyCap;
             }
             
             if (player.currentWeapon)
@@ -104,8 +106,38 @@ public class GameManager : MonoBehaviour
                 akimboMagText.text = "";
                 weaponText.text = "";
             }
-            
-            
+
+            if (player.pickupObj)
+            {
+                if(player.pickupObj.tag == "Teleporter")
+                {
+                    if (!wavesActive)
+                    {
+                        interactText.text = "Teleport";
+                    }
+                    else
+                        interactText.text = "Teleporter Inactive";
+                    
+                }
+                else if(player.pickupObj.tag == "Ammo")
+                {
+                    interactText.text = "Ammo";
+                }
+                else if(player.pickupObj.tag == "Armor")
+                {
+                    interactText.text = "Armor";
+                }
+                else if(player.pickupObj.tag == "StartWave")
+                {
+                    interactText.text = "Start Wave";
+                }
+                else if(player.pickupObj.tag == "Weapon")
+                {
+                    interactText.text = player.pickupObj.GetComponent<WeaponScript>().weaponName;
+                }
+            }
+            else
+                interactText.text = "";
 
             if (intermissionTime >= 0 && incTimer)
             {

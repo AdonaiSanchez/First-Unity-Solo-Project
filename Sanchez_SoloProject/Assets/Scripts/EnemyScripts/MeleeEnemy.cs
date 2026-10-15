@@ -30,7 +30,7 @@ public class BasicEnemy : MonoBehaviour
     public PlayerController player;
     public GameObject warning;
     public GameObject gameManager;
-    public GameObject drop;
+    public GameObject[] drops;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -70,7 +70,7 @@ public class BasicEnemy : MonoBehaviour
 
             gameManager.GetComponent<GameManager>().enemiesAlive--;
 
-            if (drop)
+            if (drops.Length != 0)
             {
                 DropItem();
             }
@@ -112,10 +112,12 @@ public class BasicEnemy : MonoBehaviour
     public void DropItem()
     {
         float rollDrop = Random.Range(1f, 100f);
+        
+        int itemDropped = (int)Random.Range(0f, drops.Length);
 
         if(rollDrop <= dropChance)
         {
-            GameObject p = Instantiate(drop, transform.position, transform.rotation);
+            GameObject p = Instantiate(drops[itemDropped], transform.position, transform.rotation);
         }
     }
 

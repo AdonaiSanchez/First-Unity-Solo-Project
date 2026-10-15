@@ -1,6 +1,7 @@
 using System.Collections;
 using Unity.Cinemachine;
 using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -285,7 +286,7 @@ public class PlayerController : MonoBehaviour
 
     public void Jump()
     {
-        if (onGround)
+        if (onGround && !gameManager.GetComponent<GameManager>().paused)
             rb.AddForce(transform.up * jumpHeight, ForceMode.Impulse);
     }
 
