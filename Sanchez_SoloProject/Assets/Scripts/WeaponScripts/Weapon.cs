@@ -1,4 +1,6 @@
+using JetBrains.Annotations;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Rendering;
@@ -10,7 +12,7 @@ public class WeaponScript : MonoBehaviour
 
     [Header("Object References")]
     public GameObject projectile;
-    public Transform firepoint;
+    public Transform[] firepoint;
     public Camera firingDirection;
     //public AudioClip[] clips;
 
@@ -24,6 +26,7 @@ public class WeaponScript : MonoBehaviour
     public bool burst = false;
     public bool bursting = false;
     public bool ads = false;
+    public bool singleLoad;
     public int weaponID;
     public string weaponName;
     public string firemode;
@@ -47,7 +50,11 @@ public class WeaponScript : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        firepoint = transform.GetChild(0);
+        for (var i = 0; i < firepoint.Length; i++)
+        {
+            firepoint[i] = transform.GetChild(i);
+        }
+        
         firingDirection = Camera.main;
         //speaker = GetComponent<AudioSource>();
     }
@@ -110,22 +117,30 @@ public class WeaponScript : MonoBehaviour
         if (mag >= magSize)
             return;
 
-        int reloadCount = magSize - mag;
-        
-        if(ammo < reloadCount)
+        if (!singleLoad)
         {
-            mag += ammo;
-            ammo = 0;
+            int reloadCount = magSize - mag;
+
+            if (ammo < reloadCount)
+            {
+                mag += ammo;
+                ammo = 0;
+            }
+            else
+            {
+                mag += reloadCount;
+                ammo -= reloadCount;
+            }
+
+            reloading = true;
+            canFire = false;
+            StartCoroutine("reloadingCooldown");
         }
         else
         {
-            mag += reloadCount;
-            ammo -= reloadCount;
+            StartCoroutine("SingleLoading");
         }
-
-        reloading = true;
-        canFire = false;
-        StartCoroutine("reloadingCooldown");
+        
     }
 
     public void fire()
@@ -136,10 +151,13 @@ public class WeaponScript : MonoBehaviour
 
             mag--;
 
-            GameObject p = Instantiate(projectile, firepoint.position, firepoint.rotation);
-            p.GetComponent<BulletDmg>().damage = weaponDmg;
-            p.GetComponent<Rigidbody>().AddForce(firingDirection.transform.forward * projVelocity);
-            Destroy(p, projLifespan);
+            for(var i = 0; i < firepoint.Length; i++)
+            {
+                GameObject p = Instantiate(projectile, firepoint[i].position, firepoint[i].rotation);
+                p.GetComponent<BulletDmg>().damage = weaponDmg;
+                p.GetComponent<Rigidbody>().AddForce((firingDirection.transform.forward + firepoint[i].transform.forward) * projVelocity);
+                Destroy(p, projLifespan);
+            }
 
             canFire = false;
 
@@ -156,6 +174,20 @@ public class WeaponScript : MonoBehaviour
             }
 
             StartCoroutine("cooldownFire");
+        }
+    }
+
+    IEnumerator SingleLoading()
+    {
+        yield return new WaitForSeconds(reloadCooldown);
+
+        mag++;
+        ammo--;
+
+        if(mag == magSize)
+        {
+            reloading = false;
+            StopCoroutine("SingleLoading");
         }
     }
 
