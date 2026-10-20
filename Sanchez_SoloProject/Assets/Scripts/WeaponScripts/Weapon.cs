@@ -27,6 +27,7 @@ public class WeaponScript : MonoBehaviour
     public bool bursting = false;
     public bool ads = false;
     public bool singleLoad;
+    public bool canLoad = true;
     public int weaponID;
     public string weaponName;
     public string firemode;
@@ -117,30 +118,35 @@ public class WeaponScript : MonoBehaviour
         if (mag >= magSize)
             return;
 
-        if (!singleLoad)
+        int reloadCount;
+
+        if (singleLoad)
         {
-            int reloadCount = magSize - mag;
-
-            if (ammo < reloadCount)
-            {
-                mag += ammo;
-                ammo = 0;
-            }
-            else
-            {
-                mag += reloadCount;
-                ammo -= reloadCount;
-            }
-
-            reloading = true;
-            canFire = false;
-            StartCoroutine("reloadingCooldown");
+            reloadCount = 1;
         }
         else
         {
-            StartCoroutine("SingleLoading");
+            reloadCount = magSize - mag;
+        }
+
+        if (ammo < reloadCount)
+        {
+            mag += ammo;
+            ammo = 0;
+        }
+        else
+        {
+            mag += reloadCount;
+            ammo -= reloadCount;
+        }
+
+        if (!singleLoad)
+        {
+            reloading = true;
+            canFire = false;
         }
         
+        StartCoroutine("reloadingCooldown");
     }
 
     public void fire()
@@ -177,20 +183,6 @@ public class WeaponScript : MonoBehaviour
         }
     }
 
-    IEnumerator SingleLoading()
-    {
-        yield return new WaitForSeconds(reloadCooldown);
-
-        mag++;
-        ammo--;
-
-        if(mag == magSize)
-        {
-            reloading = false;
-            StopCoroutine("SingleLoading");
-        }
-    }
-
     IEnumerator burstFire()
     {
         yield return new WaitForSeconds(rof*burstAmt);
@@ -217,8 +209,11 @@ public class WeaponScript : MonoBehaviour
 
     IEnumerator reloadingCooldown()
     {
+        canLoad = false;
+
         yield return new WaitForSeconds(reloadCooldown);
 
+        canLoad = true;
         reloading = false;
         canFire = true;
     }

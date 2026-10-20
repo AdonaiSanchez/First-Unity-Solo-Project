@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour
     public bool canRegen = false;
     public bool akimbo = false;
     public bool aiming = false;
+    public bool reloading;
 
     public bool onGround = true;
 
@@ -132,8 +133,20 @@ public class PlayerController : MonoBehaviour
             pickupObj = null;
 
         if (currentWeapon)
+        {
             if ((currentWeapon.holdToAttack || currentWeapon.burst) && isAttacking)
                 currentWeapon.fire();
+
+            if (currentWeapon.canLoad && reloading)
+            {
+                currentWeapon.reload();
+                if(currentWeapon.mag >= currentWeapon.magSize)
+                {
+                    reloading = false;
+                }
+            }
+        }
+            
 
         if (akimboWeapon)
         {
@@ -350,7 +363,7 @@ public class PlayerController : MonoBehaviour
 
     public void Reload()
     {
-        if (currentWeapon)
+        if (currentWeapon && !currentWeapon.singleLoad)
         {
             if (akimboWeapon && canReloadAkimbo)
             {
@@ -367,6 +380,10 @@ public class PlayerController : MonoBehaviour
                 currentWeapon.reload();
             }
         }
+        else if(currentWeapon && currentWeapon.singleLoad)
+        {
+            reloading = true;
+        }
     }
 
     public void Attack(InputAction.CallbackContext context)
@@ -381,7 +398,13 @@ public class PlayerController : MonoBehaviour
                     isAttacking = false;
             }
             else if (context.ReadValueAsButton() && !currentWeapon.bursting)
+            {
                 currentWeapon.fire();
+
+                if (currentWeapon.singleLoad)
+                    reloading = false;
+            }
+
         }    
     }
 
