@@ -153,8 +153,6 @@ public class PlayerController : MonoBehaviour
             if((akimboWeapon.holdToAttack || akimboWeapon.burst) && akimboAttacking)
                 akimboWeapon.fire();
 
-            if (akimboWeapon.mag == 0 && !canReloadAkimbo)
-                akimboWeapon.unequip();
         }
 
         Vector3 tempMove = rb.linearVelocity;
@@ -427,10 +425,17 @@ public class PlayerController : MonoBehaviour
 
     public void DropWeapon()
     {
-        if (!akimbo && currentWeapon)
+        if (akimbo)
+        {
+            Debug.Log("Akimbo dropped");
+            akimboWeapon.GetComponent<WeaponScript>().unequip();
+        }
+        
+        if (!akimbo)
+        {
+            Debug.Log("Weapon dropped");
             currentWeapon.GetComponent<WeaponScript>().unequip();
-        //else if (akimbo) ;
-            //akimboWeapon.GetComponent<WeaponScript>().unequip();
+        }
     }
 
     IEnumerator fireDmgCooldown()
