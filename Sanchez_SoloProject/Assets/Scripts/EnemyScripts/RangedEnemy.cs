@@ -81,6 +81,7 @@ public class RangedEnemy : BasicEnemy
             Destroy(gameObject);
 
             gameManager.GetComponent<GameManager>().enemiesAlive--;
+            player.paperScraps += (int)Random.Range(minPSDrop, maxPSDrop);
 
             if (drops.Length != 0)
             {

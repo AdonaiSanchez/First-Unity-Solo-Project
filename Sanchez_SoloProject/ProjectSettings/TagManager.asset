@@ -17,6 +17,8 @@ TagManager:
   - Armor
   - EnemyProjectile
   - Heal
+  - Converter
+  - AmmoBox
   layers:
   - Default
   - TransparentFX

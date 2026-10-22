@@ -3947,7 +3947,7 @@ GameObject:
   - component: {fileID: 703206661}
   m_Layer: 0
   m_Name: Paper Converter
-  m_TagString: Untagged
+  m_TagString: Converter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4207,6 +4207,7 @@ MonoBehaviour:
   maxArmor: 150
   armor: 0
   inkCartridges: 0
+  paperScraps: 0
   paperSheets: 0
   speed: 5
   sprintBoost: 1.5

@@ -654,6 +654,8 @@ MonoBehaviour:
   attackDmg: 10
   health: 100
   maxHealth: 100
+  minPSDrop: 2
+  maxPSDrop: 8
   agent: {fileID: 0}
   player: {fileID: 0}
   warning: {fileID: 0}

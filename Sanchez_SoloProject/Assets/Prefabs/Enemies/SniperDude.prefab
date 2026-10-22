@@ -654,11 +654,13 @@ MonoBehaviour:
   attackDmg: 50
   health: 30
   maxHealth: 30
+  minPSDrop: 4
+  maxPSDrop: 10
   agent: {fileID: 0}
   player: {fileID: 0}
   warning: {fileID: 0}
   gameManager: {fileID: 0}
-  drop: {fileID: 0}
+  drops: []
   stationary: 1
   friendlyBlocking: 0
   firepoint: {fileID: 0}

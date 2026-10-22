@@ -25,6 +25,8 @@ public class BasicEnemy : MonoBehaviour
     public int attackDmg = 20;
     public int health = 50;
     public int maxHealth = 50;
+    public int minPSDrop;
+    public int maxPSDrop;
 
     public NavMeshAgent agent;
     public PlayerController player;
@@ -69,6 +71,7 @@ public class BasicEnemy : MonoBehaviour
             Destroy(gameObject);
 
             gameManager.GetComponent<GameManager>().enemiesAlive--;
+            player.paperScraps += (int)Random.Range(minPSDrop, maxPSDrop);
 
             if (drops.Length != 0)
             {

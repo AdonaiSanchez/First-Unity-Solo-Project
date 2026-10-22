@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     public int armor;
     
     public int inkCartridges;
+    public int paperScraps;
     public int paperSheets;
     
     public float speed = 5.0f;
