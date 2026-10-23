@@ -16,10 +16,13 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI magText;
     public TextMeshProUGUI akimboMagText;
     public TextMeshProUGUI weaponText;
+    public TextMeshProUGUI scrapsCounter;
+    public TextMeshProUGUI sheetsCounter;
 
     public TextMeshProUGUI waveText;
 
     public GameObject pauseMenu;
+    public GameObject converterMenu;
 
     public int enemiesAlive;
     public int enemiesSpawned;
@@ -30,6 +33,7 @@ public class GameManager : MonoBehaviour
     public float waveCountdown = 5f;
 
     public bool paused = false;
+    public bool menuOpen = false;
     public bool incTimer = true;
     public bool intermission = false;
     public bool wavesActive = false;
@@ -46,6 +50,11 @@ public class GameManager : MonoBehaviour
 
             pauseMenu = GameObject.FindGameObjectWithTag("Pause");
             pauseMenu.SetActive(false);
+   
+            scrapsCounter = GameObject.Find("ScrapCounter").GetComponent<TextMeshProUGUI>();
+            sheetsCounter = GameObject.Find("SheetCounter").GetComponent<TextMeshProUGUI>();
+            converterMenu = GameObject.Find("ConverterMenu");
+            converterMenu.SetActive(false);
 
             healthBar = GameObject.Find("Health").GetComponent<Image>();
             armorBar = GameObject.Find("Armor").GetComponent<Image>();
@@ -135,6 +144,10 @@ public class GameManager : MonoBehaviour
                 {
                     interactText.text = player.pickupObj.GetComponent<WeaponScript>().weaponName;
                 }
+                else if (player.pickupObj.tag == "Converter")
+                {
+                    interactText.text = "Convert Scraps";
+                }
             }
             else
                 interactText.text = "";
@@ -152,6 +165,27 @@ public class GameManager : MonoBehaviour
             
         }
             
+    }
+
+    public void OpenConverter()
+    {
+        menuOpen = !menuOpen;
+
+        converterMenu.SetActive(menuOpen);
+        Cursor.visible = menuOpen;
+
+        if (menuOpen)
+        {
+            Time.timeScale = 0;
+
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+
+            Cursor.lockState = CursorLockMode.Locked;
+        }
     }
 
     public void Pause()
