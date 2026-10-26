@@ -39,8 +39,6 @@ public class PlayerController : MonoBehaviour
     public bool reloading;
 
     public bool onGround = true;
-
-    public bool firepointInside;
     
     public bool canSprint = false;
     public bool sprinting = false;
@@ -133,6 +131,7 @@ public class PlayerController : MonoBehaviour
         else
             pickupObj = null;
 
+
         if (currentWeapon)
         {
             if ((currentWeapon.holdToAttack || currentWeapon.burst) && isAttacking)
@@ -148,7 +147,6 @@ public class PlayerController : MonoBehaviour
             }
         }
             
-
         if (akimboWeapon)
         {
             if((akimboWeapon.holdToAttack || akimboWeapon.burst) && akimboAttacking)
@@ -158,8 +156,17 @@ public class PlayerController : MonoBehaviour
 
         Vector3 tempMove = rb.linearVelocity;
 
-        tempMove.x = moveInput.x * speed;
-        tempMove.z = moveInput.y * speed;
+        if (!gameManager.GetComponent<GameManager>().menuOpen)
+        {
+            tempMove.x = moveInput.x * speed;
+            tempMove.z = moveInput.y * speed;
+        }
+        else
+        {
+            tempMove.x = moveInput.x * 0;
+            tempMove.z = moveInput.y * 0;
+        }
+
 
         if (sprinting)
         {
@@ -174,8 +181,9 @@ public class PlayerController : MonoBehaviour
 
             }
         }*/
-
+        
         rb.linearVelocity = (tempMove.x * transform.right) + (tempMove.y * transform.up) + (tempMove.z * transform.forward);
+                    
     }
 
     private void OnTriggerEnter(Collider other)
@@ -350,18 +358,18 @@ public class PlayerController : MonoBehaviour
 
                 if (pickupObj.tag == "StartWave")
                 {
-                    pickupObj.GetComponent<PaperSynthisizer>().startWave();
+                    pickupObj.GetComponent<InkSynthisizer>().startWave();
                 }
 
                 if(pickupObj.tag == "Converter")
                 {
-                    gameManager.GetComponent<GameManager>().OpenConverter();
+                    gameManager.GetComponent<GameManager>().OpenMenu(0);
                 }
 
                 pickupObj = null;
             }
-            //else if (currentWeapon)
-                //Reload();
+            else if (gameManager.GetComponent<GameManager>().menuOpen)
+                gameManager.GetComponent<GameManager>().OpenMenu(0);
         }
     }
 
@@ -392,7 +400,7 @@ public class PlayerController : MonoBehaviour
 
     public void Attack(InputAction.CallbackContext context)
     {
-        if(currentWeapon && !gameManager.GetComponent<GameManager>().paused)
+        if(currentWeapon && !gameManager.GetComponent<GameManager>().paused && !gameManager.GetComponent<GameManager>().menuOpen)
         {
             if (currentWeapon.holdToAttack)
             {

@@ -3,10 +3,13 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using Unity.Cinemachine;
 
 public class GameManager : MonoBehaviour
 {
     public PlayerController player;
+
+    public GameObject cinemachineObj;
 
     public Image healthBar;
     public Image armorBar;
@@ -18,11 +21,15 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI weaponText;
     public TextMeshProUGUI scrapsCounter;
     public TextMeshProUGUI sheetsCounter;
+    public TextMeshProUGUI infoPlayerScraps;
+    public TextMeshProUGUI infoPlayerSheets;
+    public TextMeshProUGUI converterPlayerScraps;
+    public TextMeshProUGUI converterPlayerSheets;
 
     public TextMeshProUGUI waveText;
 
     public GameObject pauseMenu;
-    public GameObject converterMenu;
+    public GameObject[] menus;
 
     public int enemiesAlive;
     public int enemiesSpawned;
@@ -48,13 +55,16 @@ public class GameManager : MonoBehaviour
 
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
+            cinemachineObj = GameObject.Find("CinemachineCamera");
+
             pauseMenu = GameObject.FindGameObjectWithTag("Pause");
             pauseMenu.SetActive(false);
-   
+
+            infoPlayerScraps = GameObject.Find("PlayerScraps").GetComponent<TextMeshProUGUI>();
+            infoPlayerSheets = GameObject.Find("PlayerSheets").GetComponent<TextMeshProUGUI>();
+
             scrapsCounter = GameObject.Find("ScrapCounter").GetComponent<TextMeshProUGUI>();
             sheetsCounter = GameObject.Find("SheetCounter").GetComponent<TextMeshProUGUI>();
-            converterMenu = GameObject.Find("ConverterMenu");
-            converterMenu.SetActive(false);
 
             healthBar = GameObject.Find("Health").GetComponent<Image>();
             armorBar = GameObject.Find("Armor").GetComponent<Image>();
@@ -66,6 +76,11 @@ public class GameManager : MonoBehaviour
             weaponText = GameObject.Find("WeaponUsing").GetComponent<TextMeshProUGUI>();
 
             waveText = GameObject.Find("WaveCounter").GetComponent<TextMeshProUGUI>();
+
+            for (var i = 0; i < menus.Length; i++)
+            {
+                menus[i].SetActive(false);
+            }
         }
 
     }
@@ -77,6 +92,12 @@ public class GameManager : MonoBehaviour
         {
             healthBar.fillAmount = (float)player.health / (float)player.maxHealth;
             armorBar.fillAmount = (float)player.armor / (float)player.maxArmor;
+
+            infoPlayerScraps.text = "Paper Scraps: " + player.paperScraps;
+            infoPlayerSheets.text = "Paper Sheets: " + player.paperSheets;
+
+            converterPlayerScraps.text = "Scraps: " + player.paperScraps;
+            converterPlayerSheets.text = "Sheets: " + player.paperSheets;
 
             if (intermission == true)
             {
@@ -114,6 +135,11 @@ public class GameManager : MonoBehaviour
                 magText.text = "";
                 akimboMagText.text = "";
                 weaponText.text = "";
+            }
+
+            if (menuOpen)
+            {
+                menus[1].SetActive(false);
             }
 
             if (player.pickupObj)
@@ -167,23 +193,29 @@ public class GameManager : MonoBehaviour
             
     }
 
-    public void OpenConverter()
+    public void OpenInfo()
+    {
+        if (!menuOpen)
+        {
+            menus[1].SetActive(!menus[1].activeInHierarchy);
+        }
+        
+    }
+
+    public void OpenMenu(int menuOpening)
     {
         menuOpen = !menuOpen;
 
-        converterMenu.SetActive(menuOpen);
+        menus[menuOpening].SetActive(menuOpen);
+        cinemachineObj.GetComponent<CinemachineInputAxisController>().enabled = !menuOpen;
         Cursor.visible = menuOpen;
 
         if (menuOpen)
         {
-            Time.timeScale = 0;
-
             Cursor.lockState = CursorLockMode.None;
         }
         else
         {
-            Time.timeScale = 1f;
-
             Cursor.lockState = CursorLockMode.Locked;
         }
     }

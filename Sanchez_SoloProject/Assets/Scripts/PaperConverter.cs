@@ -32,10 +32,6 @@ public class PaperConverter : MonoBehaviour
         {
             StartCoroutine("ConversionCool");
         }
-        else
-        {
-            //StopCoroutine("ConversionCool");
-        }
     }
 
     public void InsertScraps()
@@ -59,8 +55,8 @@ public class PaperConverter : MonoBehaviour
 
         yield return new WaitForSeconds(conversionCooldown);
 
-        paperSheets++;
         paperScraps -= 10;
+        paperSheets++;
         converting = false;
     }
 }

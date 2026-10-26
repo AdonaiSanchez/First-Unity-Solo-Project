@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PaperSynthisizer : MonoBehaviour
+public class InkSynthisizer : MonoBehaviour
 {
 
     public GameObject gameManager;
@@ -24,5 +24,10 @@ public class PaperSynthisizer : MonoBehaviour
             gameManager.GetComponent<GameManager>().wavesActive = true;
             gameManager.GetComponent<GameManager>().waveCount++;
         }
+    }
+
+    IEnumerator CreateInkCartridge()
+    {
+
     }
 }

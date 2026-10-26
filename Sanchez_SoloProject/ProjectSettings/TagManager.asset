@@ -19,6 +19,7 @@ TagManager:
   - Heal
   - Converter
   - AmmoBox
+  - SmallPrinter
   layers:
   - Default
   - TransparentFX
