@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1554451611030291874}
   - component: {fileID: 7471010086476409494}
-  - component: {fileID: 3239878288537948042}
+  - component: {fileID: 5132823928958651208}
   m_Layer: 0
   m_Name: EnemySpawner
   m_TagString: Spawner
@@ -54,7 +54,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3239878288537948042
+--- !u!114 &5132823928958651208
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -69,6 +69,10 @@ MonoBehaviour:
   enemyType: {fileID: 5705528119830436762, guid: d20602c27e39d5f4794b11fca15804d4, type: 3}
   gameManager: {fileID: 0}
   spawnpoint: {fileID: 0}
-  spawnCool: 5
+  waveLock: 0
+  spawnCoolMax: 5
+  spawnCoolMin: 1.5
+  spawnCool: 0
+  singleSpawn: 0
   spawnerBlocked: 0
   canSpawn: 1

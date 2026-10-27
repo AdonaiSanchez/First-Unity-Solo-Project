@@ -358,7 +358,7 @@ public class PlayerController : MonoBehaviour
 
                 if (pickupObj.tag == "StartWave")
                 {
-                    pickupObj.GetComponent<InkSynthisizer>().startWave();
+                    pickupObj.GetComponent<InkSynthesizer>().startWave();
                 }
 
                 if(pickupObj.tag == "Converter")

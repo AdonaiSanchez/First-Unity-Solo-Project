@@ -385,6 +385,14 @@ PrefabInstance:
       propertyPath: singleSpawn
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5132823928958651208, guid: f3891cc969a49d243814548bc6aecbb9, type: 3}
+      propertyPath: waveLock
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5132823928958651208, guid: f3891cc969a49d243814548bc6aecbb9, type: 3}
+      propertyPath: enemyType
+      value: 
+      objectReference: {fileID: 5855750556128636665, guid: 671f50226517b8d4da09fd8f82199af3, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4126,10 +4134,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3239878288537948042, guid: f3891cc969a49d243814548bc6aecbb9, type: 3}
-      propertyPath: waveLock
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4400,6 +4404,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3239878288537948042, guid: f3891cc969a49d243814548bc6aecbb9, type: 3}
+      propertyPath: waveLock
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5132823928958651208, guid: f3891cc969a49d243814548bc6aecbb9, type: 3}
       propertyPath: waveLock
       value: 3
       objectReference: {fileID: 0}
@@ -10242,6 +10250,10 @@ PrefabInstance:
       propertyPath: singleSpawn
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5132823928958651208, guid: f3891cc969a49d243814548bc6aecbb9, type: 3}
+      propertyPath: waveLock
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -13148,6 +13160,10 @@ PrefabInstance:
       propertyPath: waveLock
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 5132823928958651208, guid: f3891cc969a49d243814548bc6aecbb9, type: 3}
+      propertyPath: waveLock
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -14812,7 +14828,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2127151411}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f0e5e5aba2cdd445a1fcfcc7e4259cd, type: 3}
+  m_Script: {fileID: 11500000, guid: 4b8a95f964cc0c248bf3e8ae285b8699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PaperSynthisizer
   gameManager: {fileID: 0}
@@ -15140,6 +15156,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: SniperTower
       objectReference: {fileID: 0}
+    - target: {fileID: 6815948757273612412, guid: 885b7469af1b3a74f8c0b68ee1561be9, type: 3}
+      propertyPath: waveLock
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6815948757273612412, guid: 885b7469af1b3a74f8c0b68ee1561be9, type: 3}
+      propertyPath: enemyType
+      value: 
+      objectReference: {fileID: 5855750556128636665, guid: 671f50226517b8d4da09fd8f82199af3, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -15395,6 +15419,7 @@ SceneRoots:
   - {fileID: 1973678513}
   - {fileID: 441591183}
   - {fileID: 703206664}
+  - {fileID: 2127151416}
   - {fileID: 1050462789}
   - {fileID: 1955819961}
   - {fileID: 299370640}
@@ -15433,7 +15458,6 @@ SceneRoots:
   - {fileID: 1529482994}
   - {fileID: 1648805534}
   - {fileID: 772592885}
-  - {fileID: 2127151416}
   - {fileID: 753700455}
   - {fileID: 2081991077}
   - {fileID: 1929951046}

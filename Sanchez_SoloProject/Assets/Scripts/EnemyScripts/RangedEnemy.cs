@@ -37,26 +37,23 @@ public class RangedEnemy : BasicEnemy
         float targetDistance = Vector3.Distance(player.transform.position, transform.position);
 
         friendlyCheck.origin = firepoint.transform.position;
-        friendlyCheck.direction = firepoint.transform.forward;
+        friendlyCheck.direction = gameObject.transform.forward;
 
+        Debug.DrawRay(friendlyCheck.origin, friendlyCheck.direction, Color.blue);
         
 
         if (Physics.Raycast(friendlyCheck, out friendlyHit, projVelocity*projLifespan))
         {
-            if (friendlyHit.collider.gameObject != GameObject.Find("Player"))
+            if (targetDistance <= attackRange && friendlyHit.collider.gameObject.tag != "Enemy")
             {
-                friendlyBlocking = true;
+                canAttack = true;
             }
             else
-                friendlyBlocking = false;
+                canAttack = false;
         }
         else
             friendlyBlocking = false;
 
-        if (targetDistance <= attackRange && !friendlyBlocking)
-            canAttack = true;
-        else
-            canAttack = false;
 
         if (!attacking && !stationary)
         {

@@ -1,8 +1,8 @@
+using System.Collections;
 using UnityEngine;
 
-public class InkSynthisizer : MonoBehaviour
+public class InkSynthesizer : MonoBehaviour
 {
-
     public GameObject gameManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -14,7 +14,7 @@ public class InkSynthisizer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void startWave()
@@ -26,8 +26,8 @@ public class InkSynthisizer : MonoBehaviour
         }
     }
 
-    IEnumerator CreateInkCartridge()
+    /*IEnumerator CreateInkCartridge()
     {
-
-    }
+        yield return new WaitForSeconds();
+    }*/
 }
