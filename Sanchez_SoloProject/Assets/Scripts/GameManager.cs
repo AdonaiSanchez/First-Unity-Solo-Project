@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI infoPlayerSheets;
     public TextMeshProUGUI converterPlayerScraps;
     public TextMeshProUGUI converterPlayerSheets;
+    public TextMeshProUGUI infoInkCartridges;
 
     public TextMeshProUGUI waveText;
 
@@ -62,6 +63,7 @@ public class GameManager : MonoBehaviour
 
             infoPlayerScraps = GameObject.Find("PlayerScraps").GetComponent<TextMeshProUGUI>();
             infoPlayerSheets = GameObject.Find("PlayerSheets").GetComponent<TextMeshProUGUI>();
+            infoInkCartridges = GameObject.Find("Ink Cartridges").GetComponent<TextMeshProUGUI>();
 
             scrapsCounter = GameObject.Find("ScrapCounter").GetComponent<TextMeshProUGUI>();
             sheetsCounter = GameObject.Find("SheetCounter").GetComponent<TextMeshProUGUI>();
@@ -95,6 +97,7 @@ public class GameManager : MonoBehaviour
 
             infoPlayerScraps.text = "Paper Scraps: " + player.paperScraps;
             infoPlayerSheets.text = "Paper Sheets: " + player.paperSheets;
+            infoInkCartridges.text = "Ink Cartridges: " + player.inkCartridges;
 
             converterPlayerScraps.text = "Scraps: " + player.paperScraps;
             converterPlayerSheets.text = "Sheets: " + player.paperSheets;

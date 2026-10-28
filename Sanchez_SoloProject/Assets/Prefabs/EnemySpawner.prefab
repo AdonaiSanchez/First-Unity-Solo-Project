@@ -71,7 +71,7 @@ MonoBehaviour:
   spawnpoint: {fileID: 0}
   waveLock: 0
   spawnCoolMax: 5
-  spawnCoolMin: 1.5
+  spawnCoolMin: 0.5
   spawnCool: 0
   singleSpawn: 0
   spawnerBlocked: 0
