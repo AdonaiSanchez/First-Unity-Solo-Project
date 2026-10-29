@@ -58,26 +58,7 @@ public class GameManager : MonoBehaviour
 
             cinemachineObj = GameObject.Find("CinemachineCamera");
 
-            pauseMenu = GameObject.FindGameObjectWithTag("Pause");
             pauseMenu.SetActive(false);
-
-            infoPlayerScraps = GameObject.Find("PlayerScraps").GetComponent<TextMeshProUGUI>();
-            infoPlayerSheets = GameObject.Find("PlayerSheets").GetComponent<TextMeshProUGUI>();
-            infoInkCartridges = GameObject.Find("Ink Cartridges").GetComponent<TextMeshProUGUI>();
-
-            scrapsCounter = GameObject.Find("ScrapCounter").GetComponent<TextMeshProUGUI>();
-            sheetsCounter = GameObject.Find("SheetCounter").GetComponent<TextMeshProUGUI>();
-
-            healthBar = GameObject.Find("Health").GetComponent<Image>();
-            armorBar = GameObject.Find("Armor").GetComponent<Image>();
-
-            interactText = GameObject.Find("InteractText").GetComponent<TextMeshProUGUI>();
-            ammoText = GameObject.Find("AmmoCounter").GetComponent<TextMeshProUGUI>();
-            magText = GameObject.Find("MagCounter").GetComponent<TextMeshProUGUI>();
-            akimboMagText = GameObject.Find("AkimboCounter").GetComponent<TextMeshProUGUI>();
-            weaponText = GameObject.Find("WeaponUsing").GetComponent<TextMeshProUGUI>();
-
-            waveText = GameObject.Find("WaveCounter").GetComponent<TextMeshProUGUI>();
 
             for (var i = 0; i < menus.Length; i++)
             {
