@@ -353,7 +353,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::G17
   projectile: {fileID: 3999810311166122512, guid: eaf91ed1726e29b44bddbf844d2ff6e8, type: 3}
-  firepoint: {fileID: 0}
+  firepoint:
+  - {fileID: 0}
   firingDirection: {fileID: 0}
   equipped: 0
   canFire: 1
@@ -364,7 +365,12 @@ MonoBehaviour:
   burst: 0
   bursting: 0
   ads: 0
+  singleLoad: 0
+  canLoad: 1
   weaponID: 5
+  sheetCost: 1
+  cartridgeCost: 1
+  printTime: 8
   weaponName: G-17
   firemode: Semi
   weaponDmg: 12

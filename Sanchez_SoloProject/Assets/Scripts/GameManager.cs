@@ -162,7 +162,7 @@ public class GameManager : MonoBehaviour
             else
                 interactText.text = "";
 
-            if (intermissionTime >= 0 && incTimer)
+            if (intermissionTime > 0 && incTimer)
             {
                 StartCoroutine("intermissionTimer");
             }

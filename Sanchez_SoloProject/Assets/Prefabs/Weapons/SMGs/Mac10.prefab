@@ -161,6 +161,9 @@ MonoBehaviour:
   singleLoad: 0
   canLoad: 1
   weaponID: 2
+  sheetCost: 2
+  cartridgeCost: 1
+  printTime: 20
   weaponName: Mac-10
   firemode: Full
   weaponDmg: 8

@@ -29,6 +29,9 @@ public class WeaponScript : MonoBehaviour
     public bool singleLoad;
     public bool canLoad = true;
     public int weaponID;
+    public int sheetCost;
+    public int cartridgeCost;
+    public int printTime;
     public string weaponName;
     public string firemode;
 
